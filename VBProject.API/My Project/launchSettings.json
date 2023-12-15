@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "VBProject.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:62437/swagger/index.html",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:62437;http://localhost:62438"
+    }
+  }
+}

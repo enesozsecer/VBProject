@@ -1,0 +1,49 @@
+﻿<dx:ThemedWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" 
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    x:Class="MainWindow"
+    Title="MainWindow" Height="700" Width="1000">
+
+    <Grid>
+        <Grid x:Name="GridMain"/>
+
+        <Grid >
+            <dxr:RibbonControl Background="DarkGray" RibbonStyle="Office2019">
+                <dxr:RibbonPage Caption="Kategoriler">
+                    <dxr:RibbonPageGroup x:Name="ribbonPageGroup" Caption="İşlemler" IsCaptionButtonEnabled="True">
+                        <dxb:BarButtonItem Name="category" ItemClick="category_ItemClick" Content="Kategoriler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Category.svg}"/>
+                        <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddCategory" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
+                        <dxb:BarButtonItem  x:Name="UpdateCategory" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
+                        <dxb:BarButtonItem x:Name="DeleteCategory" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+                <dxr:RibbonPage Caption="İnsan Kaynakları">
+                    <dxr:RibbonPageGroup Caption="İşlemler">
+                        <dxb:BarButtonItem Content="Personel Takip"/>
+                        <dxb:BarButtonItem Content="Personel İşlemleri"/>
+                        <dxb:BarButtonItem Content="Puantaj İşlemleri"/>
+                        <dxb:BarButtonItem Content="Bordro"/>
+                        <dxb:BarButtonItem Content="Başvurular"/>
+                        <dxb:BarButtonItem Content="Online IK"/>
+                        <dxb:BarButtonItem Content="Eğitim"/>
+                        <dxb:BarButtonItem Content="Tanımlar"/>
+                        <dxb:BarButtonItem Content="Entegresyon"/>
+                        <dxb:BarButtonItem Content="Yetkili"/>
+                        <dxb:BarButtonItem Content="Özel Raporlar"/>
+                        <dxb:BarButtonItem Content="SMS"/>
+                        <dxb:BarButtonItem Content="Notlar"/>
+
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+
+                <dxr:RibbonPage Caption="Satın Alma"/>
+
+            </dxr:RibbonControl>
+        </Grid >
+        
+    </Grid>
+
+</dx:ThemedWindow>
