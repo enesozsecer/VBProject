@@ -1,5 +1,5 @@
 ﻿Public Class BaseEntity
-    Public Property Id As Integer
+
     Public Property AddedTime As DateTime?
     Public Property UpdatedTime As DateTime?
     Public Property AddedIP4VAdress As String

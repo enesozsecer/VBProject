@@ -39,6 +39,22 @@ Public Class BaseFuncs
     '    End Using
 
     'End Function
+    Public Shared Function GetAll(Of T)(link As String) As JArray
+        Dim apiUrl As String = $"https://localhost:62437/{link}"
+
+        Using client As New HttpClient()
+            Dim response = client.GetAsync(apiUrl).Result
+
+            If response.IsSuccessStatusCode Then
+                Dim jsonString = response.Content.ReadAsStringAsync().Result
+                Dim values As JArray = JArray.Parse(jsonString)
+
+
+                Return values
+            End If
+
+        End Using
+    End Function
     Public Shared Function Update(Of T)(p As T, link As String) As Boolean
         Dim client As New HttpClient()
         Dim jsonData As String = JsonConvert.SerializeObject(p)

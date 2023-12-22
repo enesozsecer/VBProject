@@ -12,5 +12,4 @@ Public Class CategoryDTORequestMap
         CreateMap(Of BaseEntity, CategoryDTORequest)()
     End Sub
 
-
 End Class

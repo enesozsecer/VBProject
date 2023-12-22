@@ -2,7 +2,7 @@
 
 Public Class Product
     Inherits BaseEntity
-
+    Public Property Id As Integer
     Public Property Name As String
     Public Property Description As String = Nothing
     Public Property Category As Category

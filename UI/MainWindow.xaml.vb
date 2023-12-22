@@ -1,6 +1,12 @@
-﻿Imports DevExpress.Xpf.Bars
+﻿Imports System.Net.Http
+Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.Core
+Imports MaterialDesignThemes.Wpf
+Imports Newtonsoft.Json.Linq
+Imports UI.BaseFuncs
 Imports UI.CategoryHome
+Imports UI.UpdateCategory
+Imports VBProject.Entity
 
 '' <summary>
 '' Interaction logic for MainWindow.xaml
@@ -8,31 +14,53 @@ Imports UI.CategoryHome
 Partial Public Class MainWindow
     Inherits ThemedWindow
     Dim usc As UserControl = Nothing
-
     Public Sub New()
         InitializeComponent()
-        'Kategorileri_Getir()
     End Sub
     Public Event StatusOK As EventHandler
 
-    Private Sub BarButtonItem_Click_Add(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
+
+    Public Sub BarButtonItem_Click_Add(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
         Dim hedefSayfa As New AddCategory()
         hedefSayfa.Show()
     End Sub
-    Private Sub category_ItemClick(sender As Object, e As ItemClickEventArgs)
-        usc = New CategoryHome()
+
+    Public Shared Sub BarButtonItem_Click_Update(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
+        Dim hedefSayfaUpdate As New UpdateCategory(selectedItemId)
+        hedefSayfaUpdate.ShowDialog()
+    End Sub
+
+    Public Sub BarButtonItem_Click_Delete(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
+        Dim Id As Integer = selectedItemId
+        Dim response = Delete($"RemoveCategory/{Id}")
+        BarButtonItem_Click_Get(sender, e)
+    End Sub
+
+    Public Sub BarButtonItem_Click_Get(sender As Object, e As RoutedEventArgs)
+        usc = New CategoryHome
         GridMain.Children.Clear()
         GridMain.Children.Add(usc)
 
-        ' Frame içeriğini değiştir
-        'Frame.Content = usc
-
-        '' Frame'i görünür yap
-        'Frame.Visibility = Visibility.Visible
+        BarButtonItem_Click_Hadi(sender, e)
     End Sub
 
-    'Private Sub UpdateCategory_ItemClick_1(sender As Object, e As ItemClickEventArgs)
-    '    Dim hedefSayfa As New UpdateCategory(Id:=KategorilerListView.)
-    '    hedefSayfa.Show()
-    'End Sub
+    Public Sub BarButtonItem_Click_Hadi(sender As Object, e As RoutedEventArgs)
+        usc = New CategoryHome
+        GridMain.Children.Clear()
+        GridMain.Children.Add(usc)
+
+
+    End Sub
+    Public Shared selectedItemId As Integer
+
+    Private Sub BarButtonItem_Click_Get_Brand(sender As Object, e As ItemClickEventArgs)
+        usc = New BrandHome
+        GridMain.Children.Clear()
+        GridMain.Children.Add(usc)
+    End Sub
+    Private Sub BarButtonItem_Click_Get_Product(sender As Object, e As ItemClickEventArgs)
+        usc = New ProductHome
+        GridMain.Children.Clear()
+        GridMain.Children.Add(usc)
+    End Sub
 End Class

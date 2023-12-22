@@ -1,8 +1,10 @@
-﻿Imports VBProject.Entity
-Imports UI.BaseFuncs
-Class UpdateCategory
+﻿Imports UI.BaseFuncs
+Imports VBProject.Entity
+Imports UI.MainWindow
+Public Class UpdateCategory
     Public Property selectedId As Integer
     Public Event StatusOK As EventHandler
+
     Public Sub New(Id As Integer)
         selectedId = Id
         InitializeComponent()
@@ -16,17 +18,18 @@ Class UpdateCategory
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        Dim p As CategoryDTORequest = New CategoryDTORequest()
+        Dim p As CategoryDTOBase = New CategoryDTOBase()
         p.Id = Convert.ToUInt32(Id.Text)
         p.Name = CategoryInput.Text
-        Dim response = Update(Of CategoryDTORequest)(p, "UpdateCategory")
+        Dim response = Update(Of CategoryDTOBase)(p, "UpdateCategory")
         If response Then
-            MessageBox.Show("Güncellendi.")
-            Me.Close()
+            Close()
             RaiseEvent StatusOK(Me, EventArgs.Empty)
+            Dim hedefSayfaMain As New MainWindow()
+
         Else
             MessageBox.Show("Bir sorun oluştu...")
-
         End If
     End Sub
+
 End Class

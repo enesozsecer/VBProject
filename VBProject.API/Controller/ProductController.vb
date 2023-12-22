@@ -15,15 +15,9 @@ Public Class ProductController
         _productService = productService
     End Sub
 
-    '<HttpGet, Route("GetAllProducts")>
-    'Public Async Function GetAllProducts() As Task(Of IActionResult)
-
-    '    Return Ok("Deneme GetAll")
-    'End Function
-
     <HttpGet("/GetProducts")>
     Public Async Function GetProducts() As Task(Of IActionResult)
-        Dim products = Await _productService.GetAllAsync(Function(x) True, {"Category", "Brand"})
+        Dim products = Await _productService.GetAllAsync(Function(x) x.IsActive = True, {"Category", "Brand"})
 
         Dim productDTOResponseList As New List(Of ProductDTOResponse)()
         For Each product In products
@@ -96,4 +90,35 @@ Public Class ProductController
 
         Return Ok()
     End Function
+
+    <HttpGet("/GetProductsByCategory/{categoryId}")>
+    Public Async Function GetProductsByCategory(categoryId As Integer) As Task(Of IActionResult)
+        Dim products = Await _productService.GetAllAsync(Function(x) x.IsActive = True AndAlso x.CategoryId = categoryId, {"Category", "Brand"})
+        If products Is Nothing Then
+            Return NotFound(Sonuc(Of ProductDTOResponse).SuccessNoDataFound())
+        End If
+
+        Dim productDTOResponseList As New List(Of ProductDTOResponse)()
+        For Each product In products
+            productDTOResponseList.Add(_mapper.Map(Of ProductDTOResponse)(product))
+        Next
+        'Log.Information("Products => {@productDTOResponse} => { Kategoriye Göre Ürünler Getirildi. }", productDTOResponseList)
+        Return Ok(Sonuc(Of List(Of ProductDTOResponse)).SuccessWithData(productDTOResponseList))
+    End Function
+
+    <HttpGet("/GetProductsByBrand/{brandId}")>
+    Public Async Function GetProductsByBrand(brandId As Integer) As Task(Of IActionResult)
+        Dim products = Await _productService.GetAllAsync(Function(x) x.IsActive = True AndAlso x.BrandId = brandId, {"Category", "Brand"})
+        If products Is Nothing Then
+            Return NotFound(Sonuc(Of ProductDTOResponse).SuccessNoDataFound())
+        End If
+
+        Dim productDTOResponseList As New List(Of ProductDTOResponse)()
+        For Each product In products
+            productDTOResponseList.Add(_mapper.Map(Of ProductDTOResponse)(product))
+        Next
+        'Log.Information("Products => {@productDTOResponse} => { Markaya Göre Ürünler Getirildi. }", productDTOResponseList)
+        Return Ok(Sonuc(Of List(Of ProductDTOResponse)).SuccessWithData(productDTOResponseList))
+    End Function
+
 End Class

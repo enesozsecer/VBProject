@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ProductHome"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI" xmlns:dx="http://schemas.microsoft.com/netfx/2007/xaml/presentation" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+            xmlns:efc="clr-namespace:Microsoft.EntityFrameworkCore;assembly=Microsoft.EntityFrameworkCore" 
+             >
+    <dxg:GridControl Margin="0,155,0,0" x:Name="productlist" ItemsSource="{Binding Products}"  MouseDown="productlist_MouseDown">
+        <dxg:GridControl.View>
+
+            <dxg:TableView NewItemRowPosition="Top"
+               ShowUpdateRowButtons="OnCellEditorOpen"
+               ValidateRowDeletionCommand="{Binding ValidateRowDeletionCommand}"
+               DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}"/>
+        </dxg:GridControl.View>
+        <dxg:GridColumn x:Name="Id" FieldName="Id" Header="Position" Visible="False" Binding="{Binding Id}"/>
+        <dxg:GridColumn x:Name="Name" Width="2*" Header="Ürün Adları" Binding="{Binding Name}"/>
+        <dxg:GridColumn x:Name="Price" Width="2*" Header="Ürün Fiyatı" Binding="{Binding Description}"/>
+        <dxg:GridColumn x:Name="Marka" Width="2*" Header="Ürün Markası" Binding="{Binding BrandId}"/>
+        <dxg:GridColumn x:Name="Kategori" Width="2*" Header="Ürün Kategorisi" Binding="{Binding CategoryId}"/>
+    </dxg:GridControl>
+</UserControl>

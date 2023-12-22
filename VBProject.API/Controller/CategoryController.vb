@@ -1,5 +1,4 @@
 ﻿Imports AutoMapper
-Imports Core
 Imports Microsoft.AspNetCore.Mvc
 Imports VBProject.Business
 Imports VBProject.Entity
@@ -15,12 +14,6 @@ Public Class CategoryController
         _mapper = mapper
         _categoryService = categoryService
     End Sub
-
-    '<HttpGet, Route("GetAllProducts")>
-    'Public Async Function GetAllProducts() As Task(Of IActionResult)
-
-    '    Return Ok("Deneme GetAll")
-    'End Function
 
     <HttpGet("/GetCategories")>
     Public Async Function GetCategories() As Task(Of IActionResult)

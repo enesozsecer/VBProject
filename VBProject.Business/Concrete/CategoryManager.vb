@@ -1,6 +1,4 @@
 ﻿Imports System.Linq.Expressions
-Imports Core
-Imports Microsoft.EntityFrameworkCore.ChangeTracking
 Imports VBProject.DataAccess.ERPProject.DataAccess.Abstract.DataManagement
 Imports VBProject.Entity
 
@@ -24,6 +22,7 @@ Public Class CategoryManager
         Return Entity
     End Function
     Public Async Function UpdateAsync(Entity As Category) As Task Implements IGenericService(Of Category).UpdateAsync
+        Entity.IsActive = True
         Await _uow.CategoryRepository.UpdateAsync(Entity)
         Await _uow.SaveChangeAsync()
     End Function

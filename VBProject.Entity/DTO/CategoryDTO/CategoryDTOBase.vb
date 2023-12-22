@@ -1,6 +1,4 @@
-﻿Imports Core
-
-Public Class CategoryDTOBase
+﻿Public Class CategoryDTOBase
 
     Public Property Name As String
     Public Property Id As Integer
