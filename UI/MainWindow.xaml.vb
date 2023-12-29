@@ -41,8 +41,9 @@ Partial Public Class MainWindow
 
         Select Case clickedButton.Name
             Case "UpdateCategory"
+                categorylist_MouseDown(sender, e)
                 Dim hedefSayfaUpdate As New CategoryHome()
-                hedefSayfaUpdate.Button_Click(sender, e)
+                'hedefSayfaUpdate.Close_Window(sender, e)
                 'Case "product"
                 '    Dim hedefSayfaUpdate As New UpdateProduct(selectedItemId)
                 '    hedefSayfaUpdate.Show()
@@ -195,4 +196,16 @@ Partial Public Class MainWindow
         Return TryCast(parent, TabItem)
     End Function
 
+    Public Sub Close_Window(sender As Object, e As RoutedEventArgs)
+        openWindow.Visibility = Visibility.Collapsed
+    End Sub
+    Private a As CategoryHome
+    Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
+
+        Dim item = a.categorylist.SelectedItem
+        selectedItemId = item.Id
+        CatId.Text = item.Id
+        CategoryInput.Text = item.Name
+        openWindow.Visibility = Visibility.Visible
+    End Sub
 End Class

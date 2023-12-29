@@ -49,16 +49,19 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition/>
         </dx:Grid.ColumnDefinitions>
-        <dx:Grid Grid.Column="0" Width="250" Visibility="Collapsed" x:Name="openWindow" Background="AliceBlue">
+        <dx:Grid Grid.Column="0" Width="250" Visibility="Visible" x:Name="openWindow" Background="AliceBlue">
             <TextBlock x:Name="CategoryText" Text="Kategori Adını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Black" />
-            <TextBox x:Name="CategoryInput" Width="235" Height="22" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Margin="5,22,0,0" />
-            <TextBox Visibility="Hidden" x:Name="CatId"/>
-            <Button FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Close_Window" BorderBrush="Transparent">
+            <TextBox x:Name="CategoryInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,22,0,0" Text="{Binding Path=CategoryNameText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Visibility="Hidden" x:Name="CatId" Text="{Binding Path=CategoryIdText, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top"  BorderBrush="Transparent">
                 <Button.Background>
                     <ImageBrush ImageSource="/ViewModel/CategoryViewModel/closebutton.png"/>
                 </Button.Background>
             </Button>
-            <Button Content="Tıkla" Width="100" Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click" BorderBrush="Transparent" Background="red">
+            <Button Content="Güncelle" Width="70" Height="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click" BorderBrush="Transparent" Foreground="White" Margin="0,0,20,20">
+                <Button.Background>
+                    <ImageBrush ImageSource="/ViewModel/CategoryViewModel/png-clipart-round-red-and-gray-lid-empty-red-button-with-grey-border-icons-logos-emojis-empty-buttons.png"/>
+                </Button.Background>
             </Button>
         </dx:Grid>
         <Grid Grid.Column="1">

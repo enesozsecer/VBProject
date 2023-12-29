@@ -15,9 +15,25 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Width="250" Visibility="Visible" x:Name="openWindow" Background="AliceBlue">
+                    <TextBlock x:Name="CategoryText" Text="Kategori Adını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Black" />
+                    <TextBox x:Name="CategoryInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,22,0,0" Text="{Binding Path=CategoryNameText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Visibility="Hidden" x:Name="CatId" Text="{Binding Path=CategoryIdText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Close_Window" BorderBrush="Transparent">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/ViewModel/CategoryViewModel/closebutton.png"/>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1">
                 <!-- TabControl -->
                 <TabControl x:Name="tabControl" SelectionChanged="TabControl_SelectionChanged" Background="CornflowerBlue" Visibility="Hidden">
                 </TabControl>
+                </Grid>
             </Grid>
             <dxr:RibbonControl RibbonStyle="Office2019" AllowSimplifiedRibbon="False" FontWeight="Bold">
                 <dxr:RibbonControl.PageHeaderItems>

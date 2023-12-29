@@ -23,12 +23,14 @@ Public Class CategoryHome
 
     Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
 
+        'Dim item = categorylist.SelectedItem
+        'selectedItemId = item.Id
+        'CatId.Text = item.Id
+        'CategoryInput.Text = item.Name
+        'openWindow.Visibility = Visibility.Visible
 
-        Dim item = categorylist.SelectedItem
-        selectedItemId = item.Id
-        CatId.Text = item.Id
-        CategoryInput.Text = item.Name
-        openWindow.Visibility = Visibility.Visible
+        Dim mainWindow As New MainWindow
+        mainWindow.categorylist_MouseDown(sender, e)
         'If e.ChangedButton = MouseButton.Left AndAlso e.ClickCount = 1 Then
         '    Dim gridControl As GridControl = DirectCast(sender, GridControl)
         '    Dim tableView As TableView = TryCast(gridControl.View, TableView)
@@ -46,29 +48,15 @@ Public Class CategoryHome
         'End If
     End Sub
 
-    Private Sub Close_Window(sender As Object, e As RoutedEventArgs)
-        openWindow.Visibility = Visibility.Collapsed
-    End Sub
+    'Public Sub Close_Window(sender As Object, e As RoutedEventArgs)
+    '    openWindow.Visibility = Visibility.Collapsed
+    'End Sub
 
     Public Sub GetById(Id As Integer)
         Dim category As CategoryDTORequest = GetOne(Of CategoryDTORequest)("GetCategory/" + Id.ToString())
         CatId.Text = category.Id
     End Sub
-    Public Property CategoryNameText As String
-    Public Property CategoryIdText As String
-    Private Sub TextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
-        ' TextBox'ın içindeki yeni metni al
-        Dim newText As String = (DirectCast(sender, TextBox)).Text
-
-        ' Yapmak istediğiniz işlemleri burada gerçekleştirin
-        ' Örneğin, newText'i bir etikete (Label) yazdırabilirsiniz
-        CategoryInput.Text = newText
-        Dim p As CategoryDTOBase = New CategoryDTOBase()
-        Name = newText
-    End Sub
-
     Public Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        AddHandler CategoryInput.TextChanged, AddressOf TextBox_TextChanged
         Dim p As CategoryDTOBase = New CategoryDTOBase()
         p.Name = CategoryInput.Text
         p.Id = Convert.ToUInt32(CatId.Text)
