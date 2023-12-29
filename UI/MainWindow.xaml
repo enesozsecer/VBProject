@@ -9,10 +9,25 @@
     <Grid>
         <Grid x:Name="GridMain"/>
         <Grid>
-            <dxr:RibbonControl RibbonStyle="Office2007">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <!-- TabControl -->
+                <TabControl x:Name="tabControl" SelectionChanged="TabControl_SelectionChanged" Background="CornflowerBlue" Visibility="Hidden">
+                </TabControl>
+            </Grid>
+            <dxr:RibbonControl RibbonStyle="Office2019" AllowSimplifiedRibbon="False" FontWeight="Bold">
+                <dxr:RibbonControl.PageHeaderItems>
+                    <dxb:BarSubItem Content="Hesap" Glyph="{dx:DXImage SvgImages/Business Objects/BO_Person.svg}" RibbonStyle="Large">
+                        <dxb:BarButtonItem x:Name="logOutBtn" ItemClick="Logout" Content="Çıkış" Glyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}" RibbonStyle="Large"/>
+                    </dxb:BarSubItem>
+                </dxr:RibbonControl.PageHeaderItems>
                 <dxr:RibbonPage Caption="Kategoriler">
                     <dxr:RibbonPageGroup x:Name="ribbonPageGroup" Caption="İşlemler" IsCaptionButtonEnabled="True">
-                        <dxb:BarButtonItem Name="category" ItemClick="BarButtonItem_Click_Get" Content="Kategoriler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Category.svg}"/>
+                        <dxb:BarButtonItem Tag="CategoryTab" Name="category" ItemClick="BarButtonItem_Click_Get" Content="Kategoriler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Category.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddCategory" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateCategory" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteCategory" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
@@ -20,36 +35,31 @@
                 </dxr:RibbonPage>
                 <dxr:RibbonPage Caption="Ürünler">
                     <dxr:RibbonPageGroup x:Name="ribbonPageGroupProduct" Caption="İşlemler" IsCaptionButtonEnabled="True">
-                        <dxb:BarButtonItem Name="product" ItemClick="BarButtonItem_Click_Get_Product" Content="Ürünler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Product_Group.svg}"/>
+                        <dxb:BarButtonItem Tag="ProductTab" Name="product" ItemClick="BarButtonItem_Click_Get" Content="Ürünler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Product_Group.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddProduct" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateProduct" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteProduct" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
                     </dxr:RibbonPageGroup>
-                    <dxr:RibbonPageGroup Caption="İşlemler">
+                    <dxr:RibbonPageGroup Caption="Diğer">
                         <dxb:BarButtonItem Content="Personel Takip"/>
-                        <dxb:BarButtonItem Content="Personel İşlemleri"/>
-                        <dxb:BarButtonItem Content="Puantaj İşlemleri"/>
-                        <dxb:BarButtonItem Content="Bordro"/>
-                        <dxb:BarButtonItem Content="Başvurular"/>
-                        <dxb:BarButtonItem Content="Online IK"/>
-                        <dxb:BarButtonItem Content="Eğitim"/>
-                        <dxb:BarButtonItem Content="Tanımlar"/>
-                        <dxb:BarButtonItem Content="Entegresyon"/>
-                        <dxb:BarButtonItem Content="Yetkili"/>
-                        <dxb:BarButtonItem Content="Özel Raporlar"/>
-                        <dxb:BarButtonItem Content="SMS"/>
-                        <dxb:BarButtonItem Content="Notlar"/>
                     </dxr:RibbonPageGroup>
                 </dxr:RibbonPage>
                 <dxr:RibbonPage Caption="Markalar">
                     <dxr:RibbonPageGroup x:Name="ribbonPageGroupBrand" Caption="İşlemler" IsCaptionButtonEnabled="True">
-                        <dxb:BarButtonItem Name="brand" ItemClick="BarButtonItem_Click_Get_Brand" Content="Markalar" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Shopping_Barcode.svg}"/>
+                        <dxb:BarButtonItem Tag="BrandTab" Name="brand" ItemClick="BarButtonItem_Click_Get" Content="Markalar" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Shopping_Barcode.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddBrand" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateBrand" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
                         <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteBrand" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
                     </dxr:RibbonPageGroup>
                 </dxr:RibbonPage>
-                <dxr:RibbonPage Caption="Satın Alma"/>
+                <dxr:RibbonPage Caption="İnsan Kaynakları">
+                    <dxr:RibbonPageGroup x:Name="ribbonPageGroupUser" Caption="İşlemler" IsCaptionButtonEnabled="True">
+                        <dxb:BarButtonItem Tag="UserTab" Name="user" ItemClick="BarButtonItem_Click_Get" Content="İnsan Kaynakları" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Shopping_Barcode.svg}"/>
+                        <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddUser" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
+                        <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateUser" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
+                        <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteUser" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
             </dxr:RibbonControl>
         </Grid >
     </Grid>

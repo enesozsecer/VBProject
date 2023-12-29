@@ -21,7 +21,9 @@ Public Class CategoryController
 
         Dim categoryDTOResponseList As New List(Of CategoryDTOResponse)()
         For Each category In categories
-            categoryDTOResponseList.Add(_mapper.Map(Of CategoryDTOResponse)(category))
+            If category.IsActive = True Then
+                categoryDTOResponseList.Add(_mapper.Map(Of CategoryDTOResponse)(category))
+            End If
         Next
 
         Return Ok(categoryDTOResponseList)

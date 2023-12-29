@@ -34,7 +34,6 @@ Partial Public Class ErpDB2Context
 
 
 
-
 End Class
 
 'dotnet ef dbcontext scaffold "Data Source=DESKTOP-R04PVQ3\SQLEXPRESS; Initial Catalog=ErpDB2; Integrated Security=true; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models --project "C:\Users\Enes Özseçer\source\repos\VBProject-master\VBProject-master\VBProject.DataAccess\DataAccess.vbproj"aq

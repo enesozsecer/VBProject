@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
             xmlns:efc="clr-namespace:Microsoft.EntityFrameworkCore;assembly=Microsoft.EntityFrameworkCore" 
              >
-    <dxg:GridControl Margin="0,155,0,0" x:Name="productlist" ItemsSource="{Binding Products}"  MouseDown="productlist_MouseDown">
+    <dxg:GridControl Margin="0,0,0,0" x:Name="productlist" ItemsSource="{Binding Products}"  MouseDown="productlist_MouseDown">
         <dxg:GridControl.View>
 
             <dxg:TableView NewItemRowPosition="Top"
@@ -18,7 +18,7 @@
         <dxg:GridColumn x:Name="Id" FieldName="Id" Header="Position" Visible="False" Binding="{Binding Id}"/>
         <dxg:GridColumn x:Name="Name" Width="2*" Header="Ürün Adları" Binding="{Binding Name}"/>
         <dxg:GridColumn x:Name="Price" Width="2*" Header="Ürün Fiyatı" Binding="{Binding Description}"/>
-        <dxg:GridColumn x:Name="Marka" Width="2*" Header="Ürün Markası" Binding="{Binding BrandId}"/>
-        <dxg:GridColumn x:Name="Kategori" Width="2*" Header="Ürün Kategorisi" Binding="{Binding CategoryId}"/>
+        <dxg:GridColumn x:Name="Marka" Width="2*" Header="Ürün Markası" Binding="{Binding BrandName}"/>
+        <dxg:GridColumn x:Name="Kategori" Width="2*" Header="Ürün Kategorisi" Binding="{Binding CategoryName}"/>
     </dxg:GridControl>
 </UserControl>

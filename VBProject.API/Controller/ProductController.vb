@@ -21,7 +21,9 @@ Public Class ProductController
 
         Dim productDTOResponseList As New List(Of ProductDTOResponse)()
         For Each product In products
-            productDTOResponseList.Add(_mapper.Map(Of ProductDTOResponse)(product))
+            If product.IsActive = True Then
+                productDTOResponseList.Add(_mapper.Map(Of ProductDTOResponse)(product))
+            End If
         Next
 
         Return Ok(productDTOResponseList)

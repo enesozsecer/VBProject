@@ -26,7 +26,7 @@ Public Class RequestController
 
     <HttpGet("/Requests")>
     Public Async Function GetRequests() As Task(Of IActionResult)
-        Dim requests = Await _requestService.GetAllAsync(Function(x) x.IsActive = True, {"User", "Product", "AcceptedUser"})
+        Dim requests = Await _requestService.GetAllAsync(Function(x) x.IsActive = True, {"User", "Product"})
 
         If requests Is Nothing Then
             Return NotFound(Sonuc(Of List(Of RequestDTOResponse)).SuccessNoDataFound())

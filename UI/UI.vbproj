@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ViewModel\CategoryViewModel\closebutton.png" />
+    <None Remove="ViewModel\Image\closebutton2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Import Include="System.Windows" />
     <Import Include="System.Windows.Controls" />
     <Import Include="System.Windows.Data" />
@@ -29,9 +34,15 @@
     <PackageReference Include="MaterialDesignThemes" Version="5.0.0-ci478" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\VBProject.Entity\Entity.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ViewModel\CategoryViewModel\closebutton.png" />
+	<Resource Include="ViewModel\Image\closebutton2.png" />
   </ItemGroup>
 </Project>

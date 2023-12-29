@@ -43,27 +43,32 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>-->
-<!--ValidateRowCommand="{Binding ValidateRowCommand}"-->
-    <!--<dxg:GridControl Margin="0,155,0,0" x:Name="categorylist" ItemsSource="{Binding Name}">
-        <dxg:GridControl.View>
-            <dxg:TableView NewItemRowPosition="Top"
-                   ShowUpdateRowButtons="OnCellEditorOpen"
-                   ValidateRowDeletionCommand="{Binding ValidateRowDeletionCommand}"
-                   DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}"/>
-        </dxg:GridControl.View>
-        <dxg:GridColumn x:Name="Name" Width="2*" Header="Kategori Adları" Binding="{Binding Name}"/>
-        <dxg:GridColumn x:Name="Id" FieldName="Id" Header="Position" Visible="False" Binding="{Binding Id}"/>
-    </dxg:GridControl>-->
 
-    <dxg:GridControl Margin="0,155,0,0" x:Name="categorylist" ItemsSource="{Binding Brands}"  MouseDown="categorylist_MouseDown">
-        <dxg:GridControl.View>
-
-            <dxg:TableView NewItemRowPosition="Top"
-               ShowUpdateRowButtons="OnCellEditorOpen"
-               ValidateRowDeletionCommand="{Binding ValidateRowDeletionCommand}"
-               DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}"/>
-        </dxg:GridControl.View>
-        <dxg:GridColumn x:Name="Id" FieldName="Id" Header="Position" Visible="False" Binding="{Binding Id}"/>
-        <dxg:GridColumn x:Name="Name" Width="2*" Header="Kategori Adları" Binding="{Binding Name}"/>
-    </dxg:GridControl>
+    <dx:Grid >
+        <dx:Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition/>
+        </dx:Grid.ColumnDefinitions>
+        <dx:Grid Grid.Column="0" Width="250" Visibility="Collapsed" x:Name="openWindow" Background="AliceBlue">
+            <TextBlock x:Name="CategoryText" Text="Kategori Adını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Black" />
+            <TextBox x:Name="CategoryInput" Width="235" Height="22" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Margin="5,22,0,0" />
+            <TextBox Visibility="Hidden" x:Name="CatId"/>
+            <Button FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Close_Window" BorderBrush="Transparent">
+                <Button.Background>
+                    <ImageBrush ImageSource="/ViewModel/CategoryViewModel/closebutton.png"/>
+                </Button.Background>
+            </Button>
+            <Button Content="Tıkla" Width="100" Height="23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click" BorderBrush="Transparent" Background="red">
+            </Button>
+        </dx:Grid>
+        <Grid Grid.Column="1">
+            <dxg:GridControl x:Name="categorylist" ItemsSource="{Binding Categories}"  MouseDoubleClick="categorylist_MouseDown"  Grid.ColumnSpan="2">
+                <dxg:GridControl.View>
+                    <dxg:TableView TotalSummaryPosition="Bottom" ShowEditFormOnDoubleClick="False" ShowEditFormOnEnterKey="False" ShowEditFormOnF2Key="False" ShowEditFormUpdateCancelButtons="False" AllowEditing="False"/>
+                </dxg:GridControl.View>
+                <dxg:GridColumn x:Name="IdColumn" FieldName="IdColumn" Header="Position" Visible="False" Binding="{Binding Id}"/>
+                <dxg:GridColumn x:Name="NameColumn" Width="2*" Header="Kategori Adları" Binding="{Binding Name}"/>
+            </dxg:GridControl>
+        </Grid>
+    </dx:Grid>
 </UserControl>

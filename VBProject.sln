@@ -13,7 +13,7 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Business", "VBProject.Busin
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Core", "Core\Core.vbproj", "{EDDA4CA8-D314-4DEE-973F-D70D58553610}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UI", "UI\UI.vbproj", "{8C04FE90-9B2B-4D33-AA5A-1EF9E901DE6A}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "UI", "UI\UI.vbproj", "{8C04FE90-9B2B-4D33-AA5A-1EF9E901DE6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

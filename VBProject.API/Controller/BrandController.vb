@@ -19,7 +19,9 @@ Public Class BrandController
 
         Dim brandDTOResponseList As New List(Of BrandDTOResponse)()
         For Each brand In brands
-            brandDTOResponseList.Add(_mapper.Map(Of BrandDTOResponse)(brand))
+            If brand.IsActive = True Then
+                brandDTOResponseList.Add(_mapper.Map(Of BrandDTOResponse)(brand))
+            End If
         Next
 
         Return Ok(brandDTOResponseList)

@@ -1,6 +1,7 @@
 ﻿Imports Newtonsoft.Json.Linq
+Imports UI.MainWindow
 
-Class BrandHome
+Public Class BrandHome
     Public Sub New()
         InitializeComponent()
         GetAll()
@@ -13,6 +14,7 @@ Class BrandHome
 
     End Sub
     Private Sub brandlist_MouseDown(sender As Object, e As MouseButtonEventArgs)
-
+        Dim item = brandlist.SelectedItem
+        selectedItemId = item.Id
     End Sub
 End Class

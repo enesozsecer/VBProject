@@ -8,7 +8,7 @@
             xmlns:efc="clr-namespace:Microsoft.EntityFrameworkCore;assembly=Microsoft.EntityFrameworkCore" 
              >
 
-    <dxg:GridControl Margin="0,155,0,0" x:Name="brandlist" ItemsSource="{Binding Brands}"  MouseDown="brandlist_MouseDown">
+    <dxg:GridControl Margin="0,0,0,0" x:Name="brandlist" ItemsSource="{Binding Brands}"  MouseDown="brandlist_MouseDown">
         <dxg:GridControl.View>
 
             <dxg:TableView NewItemRowPosition="Top"

@@ -9,10 +9,8 @@ Public Class BaseFuncs
 
     Public Shared Function GetOne(Of T)(link As String) As T
         Dim apiUrl As String = $"https://localhost:62437/{link}"
-
         Using client As New HttpClient()
             Dim response = client.GetAsync(apiUrl).Result
-
             If response.IsSuccessStatusCode Then
                 Dim jsonData = response.Content.ReadAsStringAsync().Result
                 Dim val = JsonConvert.DeserializeObject(Of T)(jsonData)
@@ -23,36 +21,15 @@ Public Class BaseFuncs
             End If
         End Using
     End Function
-
-    'Public Shared Function GetAll(Of T)(link As String) As T
-    '    Dim apiUrl As String = $"https://localhost:7075/api/{link}"
-
-    '    Using client As New HttpClient()
-    '        Dim response = client.GetAsync(apiUrl).Result
-
-    '        If response.IsSuccessStatusCode Then
-    '            Dim jsonString = response.Content.ReadAsStringAsync().Result
-    '            Dim values As JArray = JArray.Parse(jsonString)
-    '            Return values
-    '        End If
-
-    '    End Using
-
-    'End Function
     Public Shared Function GetAll(Of T)(link As String) As JArray
         Dim apiUrl As String = $"https://localhost:62437/{link}"
-
         Using client As New HttpClient()
             Dim response = client.GetAsync(apiUrl).Result
-
             If response.IsSuccessStatusCode Then
                 Dim jsonString = response.Content.ReadAsStringAsync().Result
                 Dim values As JArray = JArray.Parse(jsonString)
-
-
                 Return values
             End If
-
         End Using
     End Function
     Public Shared Function Update(Of T)(p As T, link As String) As Boolean

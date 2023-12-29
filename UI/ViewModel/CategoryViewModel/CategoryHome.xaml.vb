@@ -1,10 +1,10 @@
-﻿Imports DevExpress.Xpf.Grid
-Imports Newtonsoft.Json.Linq
+﻿Imports Newtonsoft.Json.Linq
 Imports UI.MainWindow
 Imports VBProject.Entity
-Imports DevExpress.wpf.grid.core
+Imports UI.BaseFuncs
 Public Class CategoryHome
     Public Event StatusOK As EventHandler
+    Public Property selectedId As Integer
     Public Sub New()
         InitializeComponent()
         GetAll()
@@ -21,9 +21,14 @@ Public Class CategoryHome
         GetAll()
     End Sub
 
-    Private Sub categorylist_MouseDown(sender As Object, e As MouseButtonEventArgs)
-        Dim item As CategoryDTOBase = categorylist.SelectedItem
+    Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
+
+
+        Dim item = categorylist.SelectedItem
         selectedItemId = item.Id
+        CatId.Text = item.Id
+        CategoryInput.Text = item.Name
+        openWindow.Visibility = Visibility.Visible
         'If e.ChangedButton = MouseButton.Left AndAlso e.ClickCount = 1 Then
         '    Dim gridControl As GridControl = DirectCast(sender, GridControl)
         '    Dim tableView As TableView = TryCast(gridControl.View, TableView)
@@ -39,5 +44,42 @@ Public Class CategoryHome
         '        End If
         '    End If
         'End If
+    End Sub
+
+    Private Sub Close_Window(sender As Object, e As RoutedEventArgs)
+        openWindow.Visibility = Visibility.Collapsed
+    End Sub
+
+    Public Sub GetById(Id As Integer)
+        Dim category As CategoryDTORequest = GetOne(Of CategoryDTORequest)("GetCategory/" + Id.ToString())
+        CatId.Text = category.Id
+    End Sub
+    Public Property CategoryNameText As String
+    Public Property CategoryIdText As String
+    Private Sub TextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        ' TextBox'ın içindeki yeni metni al
+        Dim newText As String = (DirectCast(sender, TextBox)).Text
+
+        ' Yapmak istediğiniz işlemleri burada gerçekleştirin
+        ' Örneğin, newText'i bir etikete (Label) yazdırabilirsiniz
+        CategoryInput.Text = newText
+        Dim p As CategoryDTOBase = New CategoryDTOBase()
+        Name = newText
+    End Sub
+
+    Public Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        AddHandler CategoryInput.TextChanged, AddressOf TextBox_TextChanged
+        Dim p As CategoryDTOBase = New CategoryDTOBase()
+        p.Name = CategoryInput.Text
+        p.Id = Convert.ToUInt32(CatId.Text)
+        Dim response = Update(Of CategoryDTOBase)(p, "UpdateCategory")
+        If response Then
+            RaiseEvent StatusOK(Me, EventArgs.Empty)
+            Dim hedefSayfaMain As New MainWindow()
+
+        Else
+            MessageBox.Show("Bir sorun oluştu...")
+        End If
+
     End Sub
 End Class
