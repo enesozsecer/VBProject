@@ -197,15 +197,15 @@ Partial Public Class MainWindow
     End Function
 
     Public Sub Close_Window(sender As Object, e As RoutedEventArgs)
-        openWindow.Visibility = Visibility.Collapsed
+        openWindow1.Visibility = Visibility.Collapsed
     End Sub
-    Private a As CategoryHome
+    Private a As New CategoryHome
     Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
 
         Dim item = a.categorylist.SelectedItem
         selectedItemId = item.Id
         CatId.Text = item.Id
         CategoryInput.Text = item.Name
-        openWindow.Visibility = Visibility.Visible
+        openWindow1.Visibility = Visibility.Visible
     End Sub
 End Class
