@@ -5,41 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="LoginWindow" AllowsTransparency="True" MinHeight="180"  BorderThickness="3" BorderBrush="CornflowerBlue" MinWidth="410" Background="AliceBlue" MaxHeight="600" MaxWidth="450" Height="600" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        Title="LoginWindow" AllowsTransparency="True" MinHeight="180"  BorderThickness="2" BorderBrush="CornflowerBlue" MinWidth="410" Background="CornflowerBlue" MaxHeight="600" MaxWidth="450" Height="600" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None"
         ResizeMode="CanResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30">
+            <RowDefinition Height="20">
 
             </RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="CornflowerBlue" MouseLeftButtonDown="Border_MouseLeftButtonDown">
             <DockPanel HorizontalAlignment="Right">
-                <Button Width="30" x:Name="MinimizeButton" Click="MinimizeButton_Click" Background="AliceBlue" Content="_" />
-                <Button x:Name="CloseButton" Click="CloseButton_Click" Width="30" Content="X" Background="Red" />
-            </DockPanel>
+                <Border Margin="0,0,2,0">
+                    <Button BorderBrush="White" Height="20" Width="40" Foreground="White" x:Name="MinimizeButton" Click="MinimizeButton_Click" Content="-" VerticalContentAlignment="Center">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF00B5FF" Offset="0.344"/>
+                            <GradientStop Color="White" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+                </Border>
+                <Border>
+                    <Button BorderBrush="White" x:Name="CloseButton" Click="CloseButton_Click" Foreground="White" Height="20" Width="40" Content="X" VerticalContentAlignment="Center">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Red" Offset="0.344"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+                </Border>
+        </DockPanel>
         </Border>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,100,0,0">
 
-            <DockPanel>
+            <StackPanel>
                 <Border>
-                    <TextBlock  Margin=" 50 0 0 0" Text="Kullanıcı Adı:"/>
+                    <TextBlock Foreground="White" FontSize="18" Margin=" 50 0 0 0" Text="Kullanıcı Adı"/>
                 </Border>
                 <Border>
-                    <TextBox HorizontalAlignment="Right" Width="200" Text="admin@gmail.com" x:Name="txtUsername" Margin="0 0 50 0"/>
+                    <TextBox BorderThickness="2" BorderBrush="White" HorizontalAlignment="Left" Height="30" Width="345" Text="admin@gmail.com" x:Name="txtUsername" Margin="50 0 0 0" FontSize="13" VerticalContentAlignment="Center" />
                 </Border>
-            </DockPanel>
-            <DockPanel Margin="0 20 0 0">
+            </StackPanel>
+            <StackPanel Margin="0 20 0 0">
                 <Border>
-                    <TextBlock Margin=" 50 0 0 0" Text="Şifre:" />
+                    <TextBlock Foreground="White" FontSize="18" Margin=" 50 0 0 0" Text="Şifre" />
                 </Border>
                 <Border>
-                    <PasswordBox Password="000" HorizontalAlignment="Right" Width="200" x:Name="txtPassword"  Margin="0,0,50,0"/>
+                    <PasswordBox BorderThickness="2" BorderBrush="White" Password="000" HorizontalAlignment="Left" Height="30" Width="345" x:Name="txtPassword"  Margin="50,0,0,0" FontSize="13" VerticalContentAlignment="Center"/>
                 </Border>
-            </DockPanel>
-            <Button x:Name="logInBtn" Click="LoginButton_Click" Margin="0 20 50 0" Content="Giriş Yap" Width="100" HorizontalAlignment="Right"/>
+            </StackPanel>
+            <Button x:Name="logInBtn" Content="Giriş Yap" Width="130" Height="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="LoginButton_Click" Foreground="White" Margin="0 80 50 0" BorderThickness="1" BorderBrush="White" FontSize="15" VerticalContentAlignment="Center">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF4577D6" Offset="0.256"/>
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+
+            </Button>
         </StackPanel>
 
     </Grid>

@@ -6,15 +6,6 @@ Imports RestSharp
 Imports VBProject.Entity
 
 Public Class LoginWindow
-    'Private ReadOnly _httpClient As HttpClient
-    'Public Sub New(httpClient As HttpClient)
-
-    '    InitializeComponent()
-    '    _httpClient = httpClient
-
-    'End Sub
-
-
     Public Async Sub LoginButton_Click(sender As Object, e As RoutedEventArgs)
         logInBtn.IsEnabled = False
 

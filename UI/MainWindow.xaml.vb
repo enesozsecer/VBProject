@@ -1,29 +1,50 @@
-﻿Imports DevExpress.Xpf.Bars
+﻿Imports DevExpress.Mvvm.Native
+Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.Core
+Imports DevExpress.Xpf.Core.Native
 Imports MaterialDesignThemes.Wpf
+Imports Microsoft.Identity.Client
 Imports UI.BaseFuncs
 Imports UI.CategoryHome
 Imports VBProject.Entity
 
-'' <summary>
-'' Interaction logic for MainWindow.xaml
-'' </summary>
 Partial Public Class MainWindow
-    Inherits ThemedWindow
-    'Dim usc As UserControl = Nothing
-
+    Inherits Window
+    Public Shared selectedItemId As Integer
     Public Sub New()
         InitializeComponent()
     End Sub
-    Public Event StatusOK As EventHandler
 
+    Private Sub CloseButton_Click(sender As Object, e As RoutedEventArgs)
+        Me.Close()
+    End Sub
+
+    Private Sub MinimizeButton_Click(sender As Object, e As RoutedEventArgs)
+        WindowState = WindowState.Minimized
+    End Sub
+
+    Private Sub Border_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
+        DragMove()
+    End Sub
+    Private Sub MaxMinButton_Click(sender As Object, e As RoutedEventArgs)
+        If Me.WindowState = WindowState.Normal Then
+            Me.WindowState = WindowState.Maximized
+        ElseIf Me.WindowState = WindowState.Maximized Then
+            Me.WindowState = WindowState.Normal
+        End If
+    End Sub
     Public Async Sub Logout()
         logOutBtn.IsEnabled = False
         Application.Current.Properties.Clear()
-        Me.Close()
+        Close()
         Dim loginWindow As New LoginWindow()
         loginWindow.Show()
     End Sub
+
+
+
+
+
 
     Public Sub BarButtonItem_Click_Add(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
 
@@ -41,9 +62,8 @@ Partial Public Class MainWindow
 
         Select Case clickedButton.Name
             Case "UpdateCategory"
-                categorylist_MouseDown(sender, e)
                 Dim hedefSayfaUpdate As New CategoryHome()
-                'hedefSayfaUpdate.Close_Window(sender, e)
+                hedefSayfaUpdate.Button_Click(sender, e)
                 'Case "product"
                 '    Dim hedefSayfaUpdate As New UpdateProduct(selectedItemId)
                 '    hedefSayfaUpdate.Show()
@@ -58,7 +78,6 @@ Partial Public Class MainWindow
     End Sub
 
     Public Sub BarButtonItem_Click_Delete(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
-
         Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
         Select Case clickedButton.Name
             Case "DeleteCategory"
@@ -71,11 +90,10 @@ Partial Public Class MainWindow
                 Dim Id As Integer = selectedItemId
                 Dim response = Delete($"RemoveBrand/{Id}")
             Case Else
-                ' Bu durum gerçekleşirse, varsayılan olarak bir şey yapabilirsiniz.
+                MessageBox.Show("bi sıkıntı var kontrol et")
                 Return
         End Select
     End Sub
-
     Public Sub BarButtonItem_Click_Get(sender As Object, e As RoutedEventArgs)
         tabControl.Visibility = Visibility.Visible
         Dim clickedButton As BarButtonItem = TryCast(sender, BarButtonItem)
@@ -84,7 +102,6 @@ Partial Public Class MainWindow
             If tabItemTag IsNot Nothing Then
                 ' TabControl içindeki belirli bir sekmenin kontrolü
                 Dim existingTabItem As TabItem = FindTabItemByTag(tabItemTag)
-
                 If existingTabItem IsNot Nothing Then
                     ' Eğer sekme zaten varsa, onu seç
                     tabControl.SelectedItem = existingTabItem
@@ -101,6 +118,7 @@ Partial Public Class MainWindow
 
                     ' Başlık TextBlock
                     Dim headerTextBlock As New TextBlock With {
+                    .Foreground = New SolidColorBrush(Colors.White),
                     .Text = clickedButton.Content.ToString(),
                     .VerticalAlignment = VerticalAlignment.Center,
                     .HorizontalAlignment = HorizontalAlignment.Left
@@ -108,18 +126,17 @@ Partial Public Class MainWindow
 
                     ' Kapatma butonu
                     Dim closeButton As New Button With {
+                .Foreground = New SolidColorBrush(Colors.White),
                 .Background = New SolidColorBrush(Colors.Red),
-                .HorizontalAlignment = HorizontalAlignment.Right,
+                .HorizontalAlignment = HorizontalAlignment.Center,
                 .VerticalAlignment = VerticalAlignment.Top,
                 .Margin = New Thickness(25, 0, -7, 0),
                 .Width = 9,
                 .Height = 9,
                 .BorderThickness = New Thickness(0, 0, 0, 0),
-                .Content = New Image With {
-                    .Source = New BitmapImage(New Uri("/UI/ViewModel/Image/closebutton2.png", UriKind.Relative)),
-                    .Width = 9,
-                    .Height = 9
-                }
+                .Content = "X",
+                .FontSize = 2,
+                .VerticalContentAlignment = VerticalContentAlignment.Center
                 }
                     AddHandler closeButton.Click, AddressOf CloseTabButtonClick
 
@@ -132,7 +149,7 @@ Partial Public Class MainWindow
 
                     ' İlgili sayfa yüklenmeli veya içeriği ayarlanmalı
                     ' Örneğin:
-                    'usc = New CategoryHome
+                    ' newTabItem.Content = New YourPage()
                     Select Case clickedButton.Name
                         Case "category"
                             newTabItem.Content = New CategoryHome
@@ -143,18 +160,11 @@ Partial Public Class MainWindow
                         Case Else
                             Return
                     End Select
-
-                    ' newTabItem.Content = New YourPage()
-
                     tabControl.Items.Add(newTabItem)
                     tabControl.SelectedItem = newTabItem
                 End If
             End If
         End If
-
-        'GridMain.Children.Clear()
-        'GridMain.Children.Add(usc)
-
     End Sub
     Private Function FindTabItemByTag(tag As Object) As TabItem
         For Each item As TabItem In tabControl.Items
@@ -165,15 +175,28 @@ Partial Public Class MainWindow
         Return Nothing
     End Function
 
-    Public Shared selectedItemId As Integer
-
-    Private Sub TabControl_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        ' TabItem seçildiğinde burası çalışır
+    Public Sub TabControl_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim selectedTabItem As TabItem = TryCast(tabControl.SelectedItem, TabItem)
-        If selectedTabItem IsNot Nothing AndAlso selectedTabItem.Tag IsNot Nothing Then
-            ' İstenilen tabItem seçildiğinde işlemleri burada yapabilirsiniz
-            ' Örneğin: selectedTabItem.Tag.ToString() ile tab adını alabilirsiniz
-        End If
+
+        For Each tabItem As TabItem In tabControl.Items
+            ' Başlık StackPanel
+            Dim headerStackPanel As StackPanel = TryCast(tabItem.Header, StackPanel)
+
+            If headerStackPanel IsNot Nothing Then
+                ' Başlık TextBlock
+                Dim headerTextBlock As TextBlock = TryCast(headerStackPanel.Children.OfType(Of TextBlock)().FirstOrDefault(), TextBlock)
+
+                If headerTextBlock IsNot Nothing Then
+                    ' Rengi siyah olan TabItem'ın başlık rengini beyaza dönüştür
+                    If tabItem.IsSelected Then
+                        headerTextBlock.Foreground = New SolidColorBrush(Colors.Black)
+                    Else
+                        headerTextBlock.Foreground = New SolidColorBrush(Colors.White)
+                        tabItem.Background = New SolidColorBrush(Colors.DarkBlue)
+                    End If
+                End If
+            End If
+        Next
     End Sub
 
     Public Sub CloseTabButtonClick(sender As Object, e As RoutedEventArgs)
@@ -196,16 +219,4 @@ Partial Public Class MainWindow
         Return TryCast(parent, TabItem)
     End Function
 
-    Public Sub Close_Window(sender As Object, e As RoutedEventArgs)
-        openWindow1.Visibility = Visibility.Collapsed
-    End Sub
-    Private a As New CategoryHome
-    Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
-
-        Dim item = a.categorylist.SelectedItem
-        selectedItemId = item.Id
-        CatId.Text = item.Id
-        CategoryInput.Text = item.Name
-        openWindow1.Visibility = Visibility.Visible
-    End Sub
 End Class
