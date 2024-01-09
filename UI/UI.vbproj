@@ -9,10 +9,6 @@
 
   <ItemGroup>
     <None Remove="ViewModel\CategoryViewModel\closebutton.png" />
-    <None Remove="ViewModel\CategoryViewModel\png-clipart-blue-button-with-grey-border-icons-logos-emojis-empty-buttons.png" />
-    <None Remove="ViewModel\CategoryViewModel\png-clipart-round-red-and-gray-lid-empty-red-button-with-grey-border-icons-logos-emojis-empty-buttons.png" />
-    <None Remove="ViewModel\CategoryViewModel\update-175608423.webp" />
-    <None Remove="ViewModel\Image\closebutton2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,9 +42,5 @@
 
   <ItemGroup>
     <Resource Include="ViewModel\CategoryViewModel\closebutton.png" />
-    <Resource Include="ViewModel\CategoryViewModel\png-clipart-blue-button-with-grey-border-icons-logos-emojis-empty-buttons.png" />
-    <Resource Include="ViewModel\CategoryViewModel\png-clipart-round-red-and-gray-lid-empty-red-button-with-grey-border-icons-logos-emojis-empty-buttons.png" />
-    <Resource Include="ViewModel\CategoryViewModel\update-175608423.webp" />
-	<Resource Include="ViewModel\Image\closebutton2.png" />
   </ItemGroup>
 </Project>

@@ -3,15 +3,19 @@ Imports UI.MainWindow
 Imports VBProject.Entity
 Imports UI.BaseFuncs
 Imports System.Windows.Forms
+Imports System.Net.Http
+Imports System.Text
+Imports DevExpress.Xpf.Bars
+Imports System.Windows.Threading
 Public Class CategoryHome
-    Public Event StatusOK As EventHandler
     Dim myUserControl As New UserControl()
     Public Property selectedId As Integer
     Public Sub New()
         InitializeComponent()
         GetAll()
+        InstanceCategory = Me
     End Sub
-
+    Public Shared Property InstanceCategory As CategoryHome
     Public Async Sub GetAll()
         Dim values As JArray = UI.BaseFuncs.GetAll(Of CategoryModel)("GetCategories")
         Dim convertedValues = values.Select(Function(u) u.ToObject(Of CategoryModel)()).ToList()
@@ -19,63 +23,50 @@ Public Class CategoryHome
         categorylist.ItemsSource = filteredValues
 
     End Sub
-
-    Public Sub Category_StatusOK(sender As Object, e As EventArgs)
-        GetAll()
-    End Sub
-
     Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
-
         Dim item = categorylist.SelectedItem
+        selectedItemId = item.Id
         CatId.Text = item.Id
         CategoryInput.Text = item.Name
         openWindow.Visibility = Visibility.Visible
 
-
-        'Dim mainWindow As New MainWindow
-        'mainWindow.HandleCategoryListSelection(selectedItemId, selectedItemName)
-
-        'Dim mainWindow As New MainWindow
-        'MainWindow.selectedItemId = item.Id
-        'MainWindow.selectedItemName = item.Name
-        'mainWindow.categorylist_MouseDown(sender, e)
-
-        'If e.ChangedButton = MouseButton.Left AndAlso e.ClickCount = 1 Then
-        '    Dim gridControl As GridControl = DirectCast(sender, GridControl)
-        '    Dim tableView As TableView = TryCast(gridControl.View, TableView)
-
-        '    If tableView IsNot Nothing Then
-        '        Dim hitInfo As TableViewHitInfo = tableView.CalcHitInfo(DirectCast(e.OriginalSource, DependencyObject))
-
-        '        If hitInfo.RowHandle <> GridControl.InvalidRowHandle AndAlso hitInfo.Column IsNot Nothing Then
-        '            ' Tıklanan hücredeki verilere erişebilirsiniz
-        '            Dim columnId As String = hitInfo.Column.FieldName
-        '            Dim cellValue As Object = gridControl.GetCellValue(hitInfo.RowHandle, columnId)
-        '            ' cellValue'i kullanabilirsiniz
-        '        End If
-        '    End If
-        'End If
     End Sub
-
     Public Sub Close_Window(sender As Object, e As RoutedEventArgs)
         openWindow.Visibility = Visibility.Collapsed
     End Sub
-
     Public Sub GetById(Id As Integer)
         Dim category As CategoryDTORequest = GetOne(Of CategoryDTORequest)("GetCategory/" + Id.ToString())
         CatId.Text = category.Id
     End Sub
-
     Public Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        Dim p As CategoryDTOBase = New CategoryDTOBase()
-        p.Name = CategoryInput.Text
-        p.Id = Convert.ToUInt32(CatId.Text)
-        Dim response = Update(Of CategoryDTOBase)(p, "UpdateCategory")
-        If response Then
-            GetAll()
+        If CatId.Text = "" Then
+            Dim p As CategoryDTOBase = New CategoryDTOBase()
+            p.Name = CategoryInput.Text
+            Dim response = Add(Of CategoryDTOBase)("AddCategory", p)
+            If response Then
+                GetAll()
+            Else
+                MessageBox.Show("Bir sorun oluştu...")
+            End If
         Else
-            MessageBox.Show("Bir sorun oluştu...")
+            Dim p As CategoryDTOBase = New CategoryDTOBase()
+            p.Name = CategoryInput.Text
+            p.Id = Convert.ToUInt32(CatId.Text)
+            Dim response = Update(Of CategoryDTOBase)(p, "UpdateCategory")
+            If response Then
+                GetAll()
+            Else
+                MessageBox.Show("Bir sorun oluştu...")
+            End If
         End If
+
+
+    End Sub
+    Public Sub Button_Click_Open(sender As Object, e As RoutedEventArgs)
+        CategoryInput.Text = ""
+        CatId.Text = ""
+        openWindow.Visibility = Visibility.Visible
+
     End Sub
 
 End Class

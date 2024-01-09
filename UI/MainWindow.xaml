@@ -67,7 +67,7 @@
                         <dxr:RibbonPageGroup x:Name="ribbonPageGroup" Caption="İşlemler" IsCaptionButtonEnabled="True">
                             <dxb:BarButtonItem Tag="CategoryTab" Name="category" ItemClick="BarButtonItem_Click_Get" Content="Kategoriler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Category.svg}"/>
                             <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddCategory" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
-                            <!--<dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateCategory" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>-->
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateCategory" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
                             <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteCategory" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>

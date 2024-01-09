@@ -7,18 +7,58 @@
              mc:Ignorable="d" 
             xmlns:efc="clr-namespace:Microsoft.EntityFrameworkCore;assembly=Microsoft.EntityFrameworkCore" 
              >
-    <dxg:GridControl Margin="0,0,0,0" x:Name="productlist" ItemsSource="{Binding Products}"  MouseDown="productlist_MouseDown">
-        <dxg:GridControl.View>
 
-            <dxg:TableView NewItemRowPosition="Top"
-               ShowUpdateRowButtons="OnCellEditorOpen"
-               ValidateRowDeletionCommand="{Binding ValidateRowDeletionCommand}"
-               DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}"/>
-        </dxg:GridControl.View>
-        <dxg:GridColumn x:Name="Id" FieldName="Id" Header="Position" Visible="False" Binding="{Binding Id}"/>
-        <dxg:GridColumn x:Name="Name" Width="2*" Header="Ürün Adları" Binding="{Binding Name}"/>
-        <dxg:GridColumn x:Name="Price" Width="2*" Header="Ürün Fiyatı" Binding="{Binding Description}"/>
-        <dxg:GridColumn x:Name="Marka" Width="2*" Header="Ürün Markası" Binding="{Binding BrandName}"/>
-        <dxg:GridColumn x:Name="Kategori" Width="2*" Header="Ürün Kategorisi" Binding="{Binding CategoryName}"/>
-    </dxg:GridControl>
+    <dx:Grid >
+        <dx:Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition/>
+        </dx:Grid.ColumnDefinitions>
+        <dx:Grid Grid.Column="0" Width="250" Visibility="Visible" x:Name="openWindow" Background="AntiqueWhite">
+            <TextBlock x:Name="NameText" Text="Ürün Adını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Black" />
+            <TextBox x:Name="NameInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,20,0,0" Text="{Binding Path=ProductNameText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock x:Name="DescriptionText" Text="Ürün Açıklamasını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,50,0,0" HorizontalAlignment="Left" Foreground="Black" />
+            <TextBox x:Name="DescriptionInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,70,0,0" Text="{Binding Path=ProductDescriptionText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock x:Name="BrandText" Text="Ürün Markasını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,100,0,0" HorizontalAlignment="Left" Foreground="Black" />
+            <TextBox x:Name="BrandInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,120,0,0" Text="{Binding Path=ProductBrandText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock x:Name="CategoryText" Text="Ürün Kategorisini Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,150,0,0" HorizontalAlignment="Left" Foreground="Black" />
+            <Grid>
+                <TextBox x:Name="CategoryInput2" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,170,0,0" Text="{Binding Path=ProductCategoryText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyUp="CategoryInput_PreviewKeyUp"/>
+
+                <ListBox x:Name="CategoryListBox" Width="235" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,192,0,0" Visibility="Collapsed">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <TextBox x:Name="CategoryInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,170,0,0" Text="{Binding Path=ProductCategoryText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Visibility="Hidden" x:Name="IdInput" Text="{Binding Path=ProductIdText, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button  FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top"  BorderBrush="Transparent" Click="Close_Window" Margin="235,0,0,177" >
+                <Button.Background>
+                    <ImageBrush ImageSource="/ViewModel/CategoryViewModel/closebutton.png"/>
+                </Button.Background>
+            </Button>
+            <Button Content="Kaydet" Width="80" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click" BorderBrush="#FF0022FF" BorderThickness="1.3" Foreground="White" Margin="0,0,20,20">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0.031"/>
+                        <GradientStop Color="#FF0022FF" Offset="0.537"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </dx:Grid>
+        <Grid Grid.Column="1">
+            <dxg:GridControl Margin="0,0,0,0" x:Name="productlist" ItemsSource="{Binding Products}"  MouseDoubleClick="productlist_MouseDown" Grid.ColumnSpan="2">
+                <dxg:GridControl.View>
+                    <dxg:TableView TotalSummaryPosition="Bottom" ShowEditFormOnDoubleClick="False" ShowEditFormOnEnterKey="False" ShowEditFormOnF2Key="False" ShowEditFormUpdateCancelButtons="False" AllowEditing="False"/>
+                </dxg:GridControl.View>
+                <dxg:GridColumn x:Name="IdColumn" FieldName="IdColumn" Header="Position" Visible="False" Binding="{Binding Id}"/>
+                <dxg:GridColumn x:Name="NameColumn" Width="2*" Header="Ürün Adı" Binding="{Binding Name}"/>
+                <dxg:GridColumn x:Name="PriceColumn" Width="2*" Header="Ürün Fiyatı" Binding="{Binding Description}"/>
+                <dxg:GridColumn x:Name="BrandColumn" Width="2*" Header="Ürün Markası" Binding="{Binding BrandName}"/>
+                <dxg:GridColumn x:Name="CategoryColumn" Width="2*" Header="Ürün Kategorisi" Binding="{Binding CategoryName}"/>
+            </dxg:GridControl>
+        </Grid>
+    </dx:Grid>
 </UserControl>

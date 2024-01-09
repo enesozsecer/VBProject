@@ -1,4 +1,5 @@
-﻿Imports DevExpress.Mvvm.Native
+﻿Imports System.Windows.Threading
+Imports DevExpress.Mvvm.Native
 Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.Core
 Imports DevExpress.Xpf.Core.Native
@@ -47,14 +48,20 @@ Partial Public Class MainWindow
 
 
     Public Sub BarButtonItem_Click_Add(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
-
-        If category.IsEnabled = True Then
-            Dim hedefSayfa As New AddCategory()
-            hedefSayfa.Show()
-            'ElseIf product.IsEnabled = True Then
-            '    Dim hedefSayfa As New AddProduct()
-            '    hedefSayfa.show()
-        End If
+        Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
+        Select Case clickedButton.Name
+            Case "AddCategory"
+                Dim categoryWindow As CategoryHome = InstanceCategory
+                Dim openWindow As Grid = TryCast(categoryWindow.FindName("openWindow"), Grid)
+                categoryWindow.Button_Click_Open(sender, e)
+            Case "AddProduct"
+                Dim productWindow As ProductHome = ProductHome.InstanceProduct
+                Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
+                productWindow.Button_Click_Open(sender, e)
+            Case Else
+                ' Bu durum gerçekleşirse, varsayılan olarak bir şey yapabilirsiniz.
+                Return
+        End Select
 
     End Sub
     Public Sub BarButtonItem_Click_Update(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
@@ -62,11 +69,15 @@ Partial Public Class MainWindow
 
         Select Case clickedButton.Name
             Case "UpdateCategory"
-                Dim hedefSayfaUpdate As New CategoryHome()
-                hedefSayfaUpdate.Button_Click(sender, e)
-                'Case "product"
-                '    Dim hedefSayfaUpdate As New UpdateProduct(selectedItemId)
-                '    hedefSayfaUpdate.Show()
+                Dim categoryWindow As CategoryHome = InstanceCategory
+                Dim openWindow As Grid = TryCast(categoryWindow.FindName("openWindow"), Grid)
+                categoryWindow.Button_Click_Open(sender, e)
+                categoryWindow.categorylist_MouseDown(sender, e)
+            Case "UpdateProduct"
+                Dim productWindow As ProductHome = ProductHome.InstanceProduct
+                Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
+                productWindow.Button_Click_Open(sender, e)
+                productWindow.productlist_MouseDown(sender, e)
                 'Case "brand"
                 '    Dim hedefSayfaUpdate As New UpdateBrand(selectedItemId)
                 '    hedefSayfaUpdate.Show()
@@ -83,9 +94,15 @@ Partial Public Class MainWindow
             Case "DeleteCategory"
                 Dim Id As Integer = selectedItemId
                 Dim response = Delete($"RemoveCategory/{Id}")
+                Dim categoryWindow As CategoryHome = InstanceCategory
+                categoryWindow.GetAll()
+                categoryWindow.Close_Window(sender, e)
             Case "DeleteProduct"
                 Dim Id As Integer = selectedItemId
                 Dim response = Delete($"RemoveProduct/{Id}")
+                Dim productWindow As ProductHome = ProductHome.InstanceProduct
+                productWindow.GetAll()
+                productWindow.Close_Window(sender, e)
             Case "DeleteBrand"
                 Dim Id As Integer = selectedItemId
                 Dim response = Delete($"RemoveBrand/{Id}")
