@@ -1,38 +1,47 @@
 ﻿<UserControl x:Class="ProductHome"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:UI" xmlns:dx="http://schemas.microsoft.com/netfx/2007/xaml/presentation" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             mc:Ignorable="d" 
-            xmlns:efc="clr-namespace:Microsoft.EntityFrameworkCore;assembly=Microsoft.EntityFrameworkCore" 
-             >
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
 
     <dx:Grid >
         <dx:Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition/>
         </dx:Grid.ColumnDefinitions>
-        <dx:Grid Grid.Column="0" Width="250" Visibility="Visible" x:Name="openWindow" Background="AntiqueWhite">
+        <dx:Grid Grid.Column="0" Width="250" Visibility="Collapsed" x:Name="openWindow" Background="AntiqueWhite">
             <TextBlock x:Name="NameText" Text="Ürün Adını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Black" />
             <TextBox x:Name="NameInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,20,0,0" Text="{Binding Path=ProductNameText, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock x:Name="DescriptionText" Text="Ürün Açıklamasını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,50,0,0" HorizontalAlignment="Left" Foreground="Black" />
             <TextBox x:Name="DescriptionInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,70,0,0" Text="{Binding Path=ProductDescriptionText, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock x:Name="BrandText" Text="Ürün Markasını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,100,0,0" HorizontalAlignment="Left" Foreground="Black" />
-            <TextBox x:Name="BrandInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,120,0,0" Text="{Binding Path=ProductBrandText, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="CategoryText" Text="Ürün Kategorisini Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,150,0,0" HorizontalAlignment="Left" Foreground="Black" />
-            <Grid>
-                <TextBox x:Name="CategoryInput2" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,170,0,0" Text="{Binding Path=ProductCategoryText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyUp="CategoryInput_PreviewKeyUp"/>
-
-                <ListBox x:Name="CategoryListBox" Width="235" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,192,0,0" Visibility="Collapsed">
+            <Grid Panel.ZIndex="1">
+                <TextBox x:Name="BrandTextInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,120,0,0" Text="{Binding Path=ProductBrandText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyUp="PreviewKeyUpBrand" MouseLeftButtonDown="BrandTextInput_MouseLeftButtonDown"/>
+                <TextBlock x:Name="BrandTextId" Text="Ürün Markasını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,100,0,0" HorizontalAlignment="Left" Foreground="Black" Visibility="Hidden" />
+                <ListBox x:Name="BrandListBox" Width="235" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,142,0,0" Visibility="Collapsed" SelectionChanged="BrandListBox_SelectionChanged" Panel.ZIndex="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}" />
+                            <TextBlock Text="{Binding name}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-            <TextBox x:Name="CategoryInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,170,0,0" Text="{Binding Path=ProductCategoryText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock x:Name="CategoryText" Text="Ürün Kategorisini Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,150,0,0" HorizontalAlignment="Left" Foreground="Black" />
+            <Grid >
+                <TextBox x:Name="CategoryTextInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,170,0,0" Text="{Binding Path=ProductCategoryText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyUp="PreviewKeyUpCategory" Panel.ZIndex="2" />
+                <TextBlock x:Name="CategoryTextId" Visibility="Hidden" Text="Ürün Kategorisini Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,150,0,0" HorizontalAlignment="Left" Foreground="Black" />
+                <ListBox x:Name="CategoryListBox" Width="235" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,192,0,0" Visibility="Collapsed" SelectionChanged="CategoryListBox_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding name}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
             <TextBox Visibility="Hidden" x:Name="IdInput" Text="{Binding Path=ProductIdText, UpdateSourceTrigger=PropertyChanged}"/>
             <Button  FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top"  BorderBrush="Transparent" Click="Close_Window" Margin="235,0,0,177" >
                 <Button.Background>

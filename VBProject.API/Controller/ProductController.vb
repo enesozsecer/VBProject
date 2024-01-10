@@ -69,10 +69,6 @@ Public Class ProductController
 
         Dim existingProduct = Await _productService.GetAsync(Function(x) x.Name = product.Name)
 
-        If existingProduct IsNot Nothing Then
-            Return BadRequest("Bu kategori zaten var")
-        End If
-
         Await _productService.UpdateAsync(product)
 
         Dim productDTOResponse As ProductDTOResponse = _mapper.Map(Of ProductDTOResponse)(product)

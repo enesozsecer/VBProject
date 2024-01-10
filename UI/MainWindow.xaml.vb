@@ -95,13 +95,13 @@ Partial Public Class MainWindow
                 Dim Id As Integer = selectedItemId
                 Dim response = Delete($"RemoveCategory/{Id}")
                 Dim categoryWindow As CategoryHome = InstanceCategory
-                categoryWindow.GetAll()
+                categoryWindow.GetAllAsync()
                 categoryWindow.Close_Window(sender, e)
             Case "DeleteProduct"
                 Dim Id As Integer = selectedItemId
                 Dim response = Delete($"RemoveProduct/{Id}")
                 Dim productWindow As ProductHome = ProductHome.InstanceProduct
-                productWindow.GetAll()
+                productWindow.GetAllAsync()
                 productWindow.Close_Window(sender, e)
             Case "DeleteBrand"
                 Dim Id As Integer = selectedItemId
