@@ -22,24 +22,6 @@ Public Class CategoryHome
         Dim filteredValues = convertedValues.Select(Function(u) New CategoryModel With {.Name = u.Name, .Id = u.Id, .IsActive = u.IsActive}).ToList()
         categorylist.ItemsSource = filteredValues
     End Function
-    'Public Async Sub GetAll()
-    '    Dim values As JArray = UI.BaseFuncs.GetAll(Of CategoryModel)("GetCategories")
-    '    Dim convertedValues = values.Select(Function(u) u.ToObject(Of CategoryModel)()).ToList()
-    '    Dim filteredValues = convertedValues.Select(Function(u) New CategoryModel With {.Name = u.Name, .Id = u.Id, .IsActive = u.IsActive}).ToList()
-    '    categorylist.ItemsSource = filteredValues
-
-    'End Sub
-    Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
-        Dim item = categorylist.SelectedItem
-        selectedItemId = item.Id
-        CatId.Text = item.Id
-        CategoryInput.Text = item.Name
-        openWindow.Visibility = Visibility.Visible
-
-    End Sub
-    Public Sub Close_Window(sender As Object, e As RoutedEventArgs)
-        openWindow.Visibility = Visibility.Collapsed
-    End Sub
     Public Sub GetById(Id As Integer)
         Dim category As CategoryDTORequest = GetOne(Of CategoryDTORequest)("GetCategory/" + Id.ToString())
         CatId.Text = category.Id
@@ -65,9 +47,23 @@ Public Class CategoryHome
                 MessageBox.Show("Bir sorun oluştu...")
             End If
         End If
-
+    End Sub
+    Public Sub categorylist_MouseDown(sender As Object, e As RoutedEventArgs)
+        Dim item = categorylist.SelectedItem
+        If item Is Nothing Then
+            MessageBox.Show("Seçim yapmadınız veya veri yok!!!")
+            Return
+        End If
+        selectedItemId = item.Id
+        CatId.Text = item.Id
+        CategoryInput.Text = item.Name
+        openWindow.Visibility = Visibility.Visible
 
     End Sub
+    Public Sub Close_Window(sender As Object, e As RoutedEventArgs)
+        openWindow.Visibility = Visibility.Collapsed
+    End Sub
+
     Public Sub Button_Click_Open(sender As Object, e As RoutedEventArgs)
         CategoryInput.Text = ""
         CatId.Text = ""

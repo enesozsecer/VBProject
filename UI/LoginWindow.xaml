@@ -5,33 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="LoginWindow" AllowsTransparency="True" MinHeight="180"  BorderThickness="2" BorderBrush="CornflowerBlue" MinWidth="410" Background="CornflowerBlue" MaxHeight="600" MaxWidth="450" Height="600" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        Title="LoginWindow" AllowsTransparency="True" MinHeight="180"  BorderThickness="2" BorderBrush="Transparent" MinWidth="410" Background="CornflowerBlue" MaxHeight="600" MaxWidth="450" Height="600" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None"
         ResizeMode="CanResize">
+
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/ImageFolder/Elma Duvar Kağıdı.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20">
 
             </RowDefinition>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="CornflowerBlue" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        
+        <Border Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
             <DockPanel HorizontalAlignment="Right">
                 <Border Margin="0,0,2,0">
-                    <Button BorderBrush="White" Height="20" Width="40" Foreground="White" x:Name="MinimizeButton" Click="MinimizeButton_Click" Content="-" VerticalContentAlignment="Center">
+                    <Button BorderBrush="White" BorderThickness="0.2" Height="20" Width="40" Foreground="White" x:Name="MinimizeButton" Click="MinimizeButton_Click" Content="-" VerticalContentAlignment="Center">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF00B5FF" Offset="0.344"/>
-                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Transparent" Offset="0"/>
+                            <GradientStop Color="DarkBlue" Offset="1.999"/>
+                            
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
                 </Border>
                 <Border>
-                    <Button BorderBrush="White" x:Name="CloseButton" Click="CloseButton_Click" Foreground="White" Height="20" Width="40" Content="X" VerticalContentAlignment="Center">
+                    <Button BorderBrush="White" BorderThickness="0.2" x:Name="CloseButton" Click="CloseButton_Click" Foreground="White" Height="20" Width="40" Content="X" VerticalContentAlignment="Center">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="White" Offset="0"/>
-                            <GradientStop Color="Red" Offset="0.344"/>
+                            <GradientStop Color="Transparent" Offset="0"/>
+                            <GradientStop Color="Red" Offset="1.999"/>
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
@@ -39,14 +45,14 @@
         </DockPanel>
         </Border>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,100,0,0">
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,200,0,0">
 
             <StackPanel>
                 <Border>
                     <TextBlock Foreground="White" FontSize="18" Margin=" 50 0 0 0" Text="Kullanıcı Adı"/>
                 </Border>
                 <Border>
-                    <TextBox BorderThickness="2" BorderBrush="White" HorizontalAlignment="Left" Height="30" Width="345" Text="admin@gmail.com" x:Name="txtUsername" Margin="50 0 0 0" FontSize="13" VerticalContentAlignment="Center" />
+                    <TextBox BorderThickness="0.5" BorderBrush="White" HorizontalAlignment="Left" Height="30" Width="345" Text="admin@gmail.com" x:Name="txtUsername" Margin="50 0 0 0" FontSize="13" VerticalContentAlignment="Center" Background="Transparent" Foreground="White" />
                 </Border>
             </StackPanel>
             <StackPanel Margin="0 20 0 0">
@@ -54,14 +60,14 @@
                     <TextBlock Foreground="White" FontSize="18" Margin=" 50 0 0 0" Text="Şifre" />
                 </Border>
                 <Border>
-                    <PasswordBox BorderThickness="2" BorderBrush="White" Password="000" HorizontalAlignment="Left" Height="30" Width="345" x:Name="txtPassword"  Margin="50,0,0,0" FontSize="13" VerticalContentAlignment="Center"/>
+                    <PasswordBox BorderThickness="0.5" BorderBrush="White" Password="000" HorizontalAlignment="Left" Height="30" Width="345" x:Name="txtPassword"  Margin="50,0,0,0" FontSize="13" VerticalContentAlignment="Center" Background="Transparent" Foreground="White"/>
                 </Border>
             </StackPanel>
-            <Button x:Name="logInBtn" Content="Giriş Yap" Width="130" Height="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="LoginButton_Click" Foreground="White" Margin="0 80 50 0" BorderThickness="1" BorderBrush="White" FontSize="15" VerticalContentAlignment="Center">
+            <Button x:Name="logInBtn" Content="Giriş Yap" Width="130" Height="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="LoginButton_Click" Foreground="White" Margin="0 50 50 0" BorderThickness="0.2" BorderBrush="White" FontSize="15" VerticalContentAlignment="Center">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF4577D6" Offset="0.256"/>
-                        <GradientStop Color="White" Offset="0"/>
+                        <GradientStop Color="#FF4577D6" Offset="1.999"/>
+                        <GradientStop Color="Transparent" Offset="0"/>
                     </LinearGradientBrush>
                 </Button.Background>
 

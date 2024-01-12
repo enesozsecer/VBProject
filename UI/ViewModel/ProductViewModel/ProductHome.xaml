@@ -19,9 +19,14 @@
             <TextBox x:Name="DescriptionInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,70,0,0" Text="{Binding Path=ProductDescriptionText, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock x:Name="BrandText" Text="Ürün Markasını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,100,0,0" HorizontalAlignment="Left" Foreground="Black" />
             <Grid Panel.ZIndex="1">
-                <TextBox x:Name="BrandTextInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,120,0,0" Text="{Binding Path=ProductBrandText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyUp="PreviewKeyUpBrand" MouseLeftButtonDown="BrandTextInput_MouseLeftButtonDown"/>
-                <TextBlock x:Name="BrandTextId" Text="Ürün Markasını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,100,0,0" HorizontalAlignment="Left" Foreground="Black" Visibility="Hidden" />
-                <ListBox x:Name="BrandListBox" Width="235" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,142,0,0" Visibility="Collapsed" SelectionChanged="BrandListBox_SelectionChanged" Panel.ZIndex="0">
+                <TextBox x:Name="BrandTextInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,120,0,0" Text="{Binding Path=ProductBrandText, UpdateSourceTrigger=PropertyChanged}" Mouse.PreviewMouseDown="BrandTextInput_MouseLeftButtonDown" PreviewKeyUp="PreviewKeyUpBrand" Focusable="True"/>
+                <TextBlock x:Name="BrandTextId" Visibility="Hidden" Text="{Binding id}"/>
+                <Button x:Name="CloseBrand" Content="CloseBrand" BorderBrush="Transparent" Height="12" Width="12" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,125,13,0" Click="Close_Click_Brand" >
+                    <Button.Background>
+                        <ImageBrush ImageSource="/ImageFolder/closebutton.png"/>
+                    </Button.Background>
+                </Button>
+                <ListBox x:Name="BrandListBox" Width="235" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,142,0,0" SelectionChanged="BrandListBox_SelectionChanged" Panel.ZIndex="0" Visibility="Collapsed">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding name}" />
@@ -31,8 +36,13 @@
             </Grid>
             <TextBlock x:Name="CategoryText" Text="Ürün Kategorisini Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,150,0,0" HorizontalAlignment="Left" Foreground="Black" />
             <Grid >
-                <TextBox x:Name="CategoryTextInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,170,0,0" Text="{Binding Path=ProductCategoryText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyUp="PreviewKeyUpCategory" Panel.ZIndex="2" />
-                <TextBlock x:Name="CategoryTextId" Visibility="Hidden" Text="Ürün Kategorisini Güncelle..." Width="235" Height="22" VerticalAlignment="Top" Margin="0,150,0,0" HorizontalAlignment="Left" Foreground="Black" />
+                <TextBox x:Name="CategoryTextInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,170,0,0" Text="{Binding Path=ProductCategoryText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyUp="PreviewKeyUpCategory" Mouse.PreviewMouseDown="CategoryTextInput_MouseLeftButtonDown" />
+                <TextBlock x:Name="CategoryTextId" Visibility="Hidden" Text="{Binding id}"/>
+                <Button x:Name="CloseCategory" Content="CloseCategory" BorderBrush="Transparent" Height="12" Width="12" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5,175,13,0" Click="Close_Click_Category" >
+                    <Button.Background>
+                        <ImageBrush ImageSource="/ImageFolder/closebutton.png"/>
+                    </Button.Background>
+                </Button>
                 <ListBox x:Name="CategoryListBox" Width="235" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,192,0,0" Visibility="Collapsed" SelectionChanged="CategoryListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -41,17 +51,16 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-
             <TextBox Visibility="Hidden" x:Name="IdInput" Text="{Binding Path=ProductIdText, UpdateSourceTrigger=PropertyChanged}"/>
             <Button  FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top"  BorderBrush="Transparent" Click="Close_Window" Margin="235,0,0,177" >
                 <Button.Background>
-                    <ImageBrush ImageSource="/ViewModel/CategoryViewModel/closebutton.png"/>
+                    <ImageBrush ImageSource="/ImageFolder/closebutton.png"/>
                 </Button.Background>
             </Button>
             <Button Content="Kaydet" Width="80" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click" BorderBrush="#FF0022FF" BorderThickness="1.3" Foreground="White" Margin="0,0,20,20">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White" Offset="0.031"/>
+                        <GradientStop Color="Transparent" Offset="1.5"/>
                         <GradientStop Color="#FF0022FF" Offset="0.537"/>
                     </LinearGradientBrush>
                 </Button.Background>
@@ -64,7 +73,7 @@
                 </dxg:GridControl.View>
                 <dxg:GridColumn x:Name="IdColumn" FieldName="IdColumn" Header="Position" Visible="False" Binding="{Binding Id}"/>
                 <dxg:GridColumn x:Name="NameColumn" Width="2*" Header="Ürün Adı" Binding="{Binding Name}"/>
-                <dxg:GridColumn x:Name="PriceColumn" Width="2*" Header="Ürün Fiyatı" Binding="{Binding Description}"/>
+                <dxg:GridColumn x:Name="PriceColumn" Width="2*" Header="Ürün Açıklaması" Binding="{Binding Description}"/>
                 <dxg:GridColumn x:Name="BrandColumn" Width="2*" Header="Ürün Markası" Binding="{Binding BrandName}"/>
                 <dxg:GridColumn x:Name="CategoryColumn" Width="2*" Header="Ürün Kategorisi" Binding="{Binding CategoryName}"/>
             </dxg:GridControl>

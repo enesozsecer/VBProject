@@ -26,11 +26,13 @@ Public Class ProductManager
     End Function
 
     Public Async Function RemoveAsync(ByVal Entity As Product) As Task Implements IGenericService(Of Product).RemoveAsync
+        Entity.IsActive = False
         Await _uow.ProductRepository.UpdateAsync(Entity)
         Await _uow.SaveChangeAsync()
     End Function
 
     Public Async Function UpdateAsync(ByVal Entity As Product) As Task Implements IGenericService(Of Product).UpdateAsync
+        Entity.IsActive = True
         Await _uow.ProductRepository.UpdateAsync(Entity)
         Await _uow.SaveChangeAsync()
     End Function

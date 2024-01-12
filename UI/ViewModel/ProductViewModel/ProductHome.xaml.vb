@@ -1,5 +1,6 @@
 ﻿Imports System.Text
 Imports System.Windows.Forms
+Imports DevExpress.Xpf.Bars
 Imports Newtonsoft.Json.Linq
 Imports UI.BaseFuncs
 Imports UI.MainWindow
@@ -26,10 +27,16 @@ Public Class ProductHome
     End Function
     Public Sub productlist_MouseDown(sender As Object, e As RoutedEventArgs)
         Dim item = productlist.SelectedItem
+        If item Is Nothing Then
+            MessageBox.Show("Seçim yapmadınız veya veri yok!!!")
+            Return
+        End If
         selectedItemId = item.Id
         IdInput.Text = item.Id
         NameInput.Text = item.Name
         DescriptionInput.Text = item.Description
+        CategoryTextInput.Text = item.CategoryName
+        BrandTextInput.Text = item.BrandName
         openWindow.Visibility = Visibility.Visible
 
     End Sub
@@ -41,11 +48,14 @@ Public Class ProductHome
     '    CatId.Text = category.Id
     'End Sub
     Public Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        Dim clickButton As Button
+        If clickButton IsNot Nothing Then
+            clickButton.BackColor = System.Drawing.Color.Black
+        End If
         If IdInput.Text = "" Then
             Dim p As ProductDTOBase = New ProductDTOBase()
             p.Name = NameInput.Text
             p.Description = DescriptionInput.Text
-            p.CategoryId = Convert.ToInt32(CategoryTextId.Text)
             p.CategoryId = Convert.ToInt32(CategoryTextId.Text)
             p.BrandId = Convert.ToInt32(BrandTextId.Text)
             Dim response = Add(Of ProductDTOBase)("AddProduct", p)
@@ -89,24 +99,9 @@ Public Class ProductHome
         CategoryListBox.ItemsSource = filteredCategories
         If categories.Any() Then
             CategoryListBox.Visibility = Visibility.Visible
-        Else
-            CategoryListBox.Visibility = Visibility.Collapsed
         End If
     End Sub
-    Private Sub CategoryListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        Dim selectedCategory As JObject = TryCast(CategoryListBox.SelectedItem, JObject)
 
-        If selectedCategory IsNot Nothing Then
-            Dim categoryId As String = selectedCategory("id")
-            Dim categoryName As String = selectedCategory("name")
-
-            If categoryName IsNot Nothing Then
-                CategoryTextId.Text = categoryId
-                CategoryTextInput.Text = categoryName
-                CategoryListBox.Visibility = Visibility.Hidden
-            End If
-        End If
-    End Sub
 
     Private Sub PreviewKeyUpBrand(sender As Object, e As Input.KeyEventArgs)
         Dim filterTextBrand As String = BrandTextInput.Text.ToLower()
@@ -116,8 +111,6 @@ Public Class ProductHome
         BrandListBox.ItemsSource = filteredBrands
         If brands.Any() Then
             BrandListBox.Visibility = Visibility.Visible
-        Else
-            BrandListBox.Visibility = Visibility.Collapsed
         End If
     End Sub
 
@@ -135,8 +128,40 @@ Public Class ProductHome
             End If
         End If
     End Sub
-
     Private Sub BrandTextInput_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
-        CategoryListBox.Visibility = Visibility.Hidden
+        PreviewKeyUpBrand(sender, Nothing)
+    End Sub
+    Private Sub CategoryTextInput_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
+        PreviewKeyUpCategory(sender, Nothing)
+    End Sub
+
+    Private Sub Close_Click_Brand(sender As Object, e As RoutedEventArgs)
+        BrandListBox.Visibility = Visibility.Collapsed
+        BrandTextInput.Text = ""
+    End Sub
+
+    Private Sub CategoryTextInput_TextChanged(sender As Object, e As TextChangedEventArgs) Handles CategoryTextInput.TextChanged
+    End Sub
+    Private Sub BrandTextInput_TextChanged(sender As Object, e As TextChangedEventArgs) Handles BrandTextInput.TextChanged
+    End Sub
+
+    Private Sub Close_Click_Category(sender As Object, e As RoutedEventArgs)
+        CategoryListBox.Visibility = Visibility.Collapsed
+        CategoryTextInput.Text = ""
+    End Sub
+
+    Private Sub CategoryListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        Dim selectedCategory As JObject = TryCast(CategoryListBox.SelectedItem, JObject)
+
+        If selectedCategory IsNot Nothing Then
+            Dim categoryId As String = selectedCategory("id")
+            Dim categoryName As String = selectedCategory("name")
+
+            If categoryName IsNot Nothing Then
+                CategoryTextId.Text = categoryId
+                CategoryTextInput.Text = categoryName
+                CategoryListBox.Visibility = Visibility.Hidden
+            End If
+        End If
     End Sub
 End Class

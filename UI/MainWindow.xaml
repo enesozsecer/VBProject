@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" 
-    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" x:Name="window" 
     x:Class="MainWindow"
     Title="MainWindow" Height="700" Width="1000" Background="#FF0173C7" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None"
         ResizeMode="CanResize">
@@ -14,41 +14,38 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Panel.ZIndex="1" Background="#FF0173C7" Height="31" MouseDown="MaxMinButton_Click">
-                <Border Grid.Row="0" MouseLeftButtonDown="Border_MouseLeftButtonDown" BorderBrush="White" BorderThickness="1">
+            <Grid Grid.Row="0" Panel.ZIndex="1" Background="#FF0173C7" Height="23" MouseDown="MaxMinButton_Click">
+                <Border Grid.Row="0" MouseLeftButtonDown="Border_MouseLeftButtonDown" BorderBrush="White" BorderThickness="0.5">
                     <Border.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="White" Offset="0"/>
-                            <GradientStop Color="#FF0154C7" Offset="0.471"/>
-                        </LinearGradientBrush>
+                        <ImageBrush ImageSource="/ImageFolder/1175.jpg_wh860.jpg"/>
                     </Border.Background>
                     <DockPanel HorizontalAlignment="Right">
                         <Border Margin="0,0,2,0">
-                            <Button BorderBrush="White" Height="25" Width="50" Foreground="White" x:Name="MinimizeButton" Click="MinimizeButton_Click" Content="-" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                            <Button BorderBrush="White" BorderThickness="0.5" Height="25" Width="50" Foreground="White" x:Name="MinimizeButton" Click="MinimizeButton_Click" Content="-" VerticalAlignment="Center" VerticalContentAlignment="Center">
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF00B5FF" Offset="0.344"/>
-                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="Transparent" Offset="1.4"/>
+                                        <GradientStop Color="#FF00B5FF" Offset="0"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                             </Button>
                         </Border>
                         <Border Margin="0,0,2,0">
-                            <Button BorderBrush="White" Height="25" Width="50" Foreground="White" x:Name="MaxMinButton" Click="MaxMinButton_Click" Content="0" VerticalAlignment="Center" VerticalContentAlignment="Center" >
+                            <Button BorderBrush="White" BorderThickness="0.5" Height="25" Width="50" Foreground="White" x:Name="MaxMinButton" Click="MaxMinButton_Click" Content="0" VerticalAlignment="Center" VerticalContentAlignment="Center" >
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF00B5FF" Offset="0.344"/>
-                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="Transparent" Offset="1.4"/>
+                                        <GradientStop Color="#FF00B5FF" Offset="0"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                             </Button>
                         </Border>
                         <Border>
-                            <Button BorderBrush="White" x:Name="CloseButton" Click="CloseButton_Click" Foreground="White" Height="25" Width="50" Content="X" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                            <Button BorderBrush="White" BorderThickness="0.5" x:Name="CloseButton" Click="CloseButton_Click" Foreground="White" Height="25" Width="50" Content="X" VerticalAlignment="Center" VerticalContentAlignment="Center">
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="White" Offset="0"/>
-                                        <GradientStop Color="Red" Offset="0.344"/>
+                                        <GradientStop Color="Transparent" Offset="1.4"/>
+                                        <GradientStop Color="Red" Offset="0"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                             </Button>
@@ -56,51 +53,64 @@
                     </DockPanel>
                 </Border>
             </Grid>
-            <Grid Grid.Row="1" Margin="0,-30,0,0">
-                <dxr:RibbonControl RibbonStyle="Office2019" AllowSimplifiedRibbon="False" FontWeight="Bold" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Arial">
+            <Grid Grid.Row="1" Margin="0,-160,0,0">
+                <dxr:RibbonControl RibbonStyle="Office2019" AllowSimplifiedRibbon="False" FontWeight="Bold" FontFamily="Arial" Margin="0,160,0,0" ToolbarShowMode="Hide" ToolbarShowCustomizationButton="False" ShowApplicationButton="False" RibbonTitleBarVisibility="Collapsed">
+                    <dxr:RibbonControl.ApplicationMenu>
+                        <dxr:ApplicationMenu/>
+                    </dxr:RibbonControl.ApplicationMenu>
+                    <dxr:RibbonControl.Background>
+                        <ImageBrush  Stretch="None" ImageSource="/ImageFolder/Ekran görüntüsü 2024-01-12 135301.png" TileMode="None" Opacity="1" RelativeTransform="{Binding VerticalAlignment.Top.Bottom, ElementName=window}"/>
+                    </dxr:RibbonControl.Background>
                     <dxr:RibbonControl.PageHeaderItems>
-                        <dxb:BarSubItem Content="Hesap" Glyph="{dx:DXImage SvgImages/Business Objects/BO_Person.svg}" RibbonStyle="Large">
+                        <dxb:BarSubItem Background="Transparent" Foreground="Wheat" Content="Hesap" Glyph="{dx:DXImage SvgImages/Business Objects/BO_Person.svg}" RibbonStyle="Large">
                             <dxb:BarButtonItem x:Name="logOutBtn" ItemClick="Logout" Content="Çıkış" Glyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}" RibbonStyle="Large"/>
                         </dxb:BarSubItem>
                     </dxr:RibbonControl.PageHeaderItems>
-                    <dxr:RibbonPage Caption="Kategoriler">
-                        <dxr:RibbonPageGroup x:Name="ribbonPageGroup" Caption="İşlemler" IsCaptionButtonEnabled="True">
-                            <dxb:BarButtonItem Tag="CategoryTab" Name="category" ItemClick="BarButtonItem_Click_Get" Content="Kategoriler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Category.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddCategory" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateCategory" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteCategory" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                    <dxr:RibbonPage Caption="Kategoriler" Background="Transparent" Foreground="Wheat">
+                        <dxr:RibbonPageGroup x:Name="ribbonPageGroup" Foreground="Wheat" Caption="İşlemler" IsCaptionButtonEnabled="True">
+                            <dxb:BarButtonItem Tag="CategoryTab" Foreground="Wheat" Name="category" ItemClick="BarButtonItem_Click_Get" Content="Kategoriler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Category.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" Foreground="Wheat" x:Name="AddCategory" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" Foreground="Wheat" x:Name="UpdateCategory" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" Foreground="Wheat" x:Name="DeleteCategory" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_DeleteAll" Foreground="Wheat" x:Name="DeleteAllCategory" Content="Tümünü Kaldır" LargeGlyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Delete.svg}"/>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
-                    <dxr:RibbonPage Caption="Ürünler">
-                        <dxr:RibbonPageGroup x:Name="ribbonPageGroupProduct" Caption="İşlemler" IsCaptionButtonEnabled="True">
-                            <dxb:BarButtonItem Tag="ProductTab" Name="product" ItemClick="BarButtonItem_Click_Get" Content="Ürünler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Product_Group.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddProduct" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateProduct" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteProduct" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                    <dxr:RibbonPage Caption="Ürünler" Background="Transparent" Foreground="Wheat">
+                        <dxr:RibbonPageGroup x:Name="ribbonPageGroupProduct" Foreground="Wheat" Caption="İşlemler" IsCaptionButtonEnabled="True">
+                            <dxb:BarButtonItem Tag="ProductTab" Name="product" Foreground="Wheat" ItemClick="BarButtonItem_Click_Get" Content="Ürünler" LargeGlyph="{dx:DXImage SvgImages/Business Objects/BO_Product_Group.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" Foreground="Wheat" x:Name="AddProduct" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" Foreground="Wheat" x:Name="UpdateProduct" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" Foreground="Wheat" x:Name="DeleteProduct" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_DeleteAll" Foreground="Wheat" x:Name="DeleteAllProduct" Content="Tümünü Kaldır" LargeGlyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Delete.svg}"/>
                         </dxr:RibbonPageGroup>
                         <dxr:RibbonPageGroup Caption="Diğer">
                             <dxb:BarButtonItem Content="Personel Takip"/>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
-                    <dxr:RibbonPage Caption="Markalar">
-                        <dxr:RibbonPageGroup x:Name="ribbonPageGroupBrand" Caption="İşlemler" IsCaptionButtonEnabled="True">
-                            <dxb:BarButtonItem Tag="BrandTab" Name="brand" ItemClick="BarButtonItem_Click_Get" Content="Markalar" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Shopping_Barcode.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddBrand" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateBrand" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteBrand" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                    <dxr:RibbonPage Background="Transparent" Foreground="Wheat" Caption="Markalar">
+                        <dxr:RibbonPageGroup x:Name="ribbonPageGroupBrand" Foreground="Wheat" Caption="İşlemler" IsCaptionButtonEnabled="True">
+                            <dxb:BarButtonItem Tag="BrandTab" Name="brand" Foreground="Wheat" ItemClick="BarButtonItem_Click_Get" Content="Markalar" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Shopping_Barcode.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" Foreground="Wheat" x:Name="AddBrand" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" Foreground="Wheat" x:Name="UpdateBrand" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" Foreground="Wheat" x:Name="DeleteBrand" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_DeleteAll" Foreground="Wheat" x:Name="DeleteAllBrand" Content="Tümünü Kaldır" LargeGlyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Delete.svg}"/>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
-                    <dxr:RibbonPage Caption="İnsan Kaynakları">
-                        <dxr:RibbonPageGroup x:Name="ribbonPageGroupUser" Caption="İşlemler" IsCaptionButtonEnabled="True">
-                            <dxb:BarButtonItem Tag="UserTab" Name="user" ItemClick="BarButtonItem_Click_Get" Content="İnsan Kaynakları" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Shopping_Barcode.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" x:Name="AddUser" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" x:Name="UpdateUser" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
-                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" x:Name="DeleteUser" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                    <dxr:RibbonPage Caption="İnsan Kaynakları" Background="Transparent" Foreground="Wheat">
+                        <dxr:RibbonPageGroup x:Name="ribbonPageGroupUser" Foreground="Wheat" Caption="İşlemler" IsCaptionButtonEnabled="True">
+                            <dxb:BarButtonItem Tag="UserTab" Name="user" Foreground="Wheat" ItemClick="BarButtonItem_Click_Get" Content="İnsan Kaynakları" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Shopping_Barcode.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Add" Foreground="Wheat" x:Name="AddUser" Content="Kayıt" LargeGlyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Update" Foreground="Wheat" x:Name="UpdateUser" Content="Düzenle" LargeGlyph="{dx:DXImage SvgImages/Dashboards/AutomaticUpdates.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_Delete" Foreground="Wheat" x:Name="DeleteUser" Content="Kaldır" LargeGlyph="{dx:DXImage SvgImages/Dashboards/Delete.svg}"/>
+                            <dxb:BarButtonItem ItemClick="BarButtonItem_Click_DeleteAll" Foreground="Wheat" x:Name="DeleteAllUser" Content="Tümünü Kaldır" LargeGlyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Delete.svg}"/>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
                 </dxr:RibbonControl>
             </Grid>
-            <Grid Grid.Row="2" Background="#FF0173C7">
+            <Grid Grid.Row="2">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/ImageFolder/pexels-marieke-schönfeld-2514035.jpg"/>
+                </Grid.Background>
                 <TabControl x:Name="tabControl" SelectionChanged="TabControl_SelectionChanged" Background="WhiteSmoke" Visibility="Hidden">
                 </TabControl>
             </Grid>

@@ -1,13 +1,6 @@
-﻿Imports System.Windows.Threading
-Imports DevExpress.Mvvm.Native
-Imports DevExpress.Xpf.Bars
-Imports DevExpress.Xpf.Core
-Imports DevExpress.Xpf.Core.Native
-Imports MaterialDesignThemes.Wpf
-Imports Microsoft.Identity.Client
+﻿Imports DevExpress.Xpf.Bars
 Imports UI.BaseFuncs
 Imports UI.CategoryHome
-Imports VBProject.Entity
 
 Partial Public Class MainWindow
     Inherits Window
@@ -58,6 +51,10 @@ Partial Public Class MainWindow
                 Dim productWindow As ProductHome = ProductHome.InstanceProduct
                 Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
                 productWindow.Button_Click_Open(sender, e)
+            Case "AddBrand"
+                Dim brandWindow As BrandHome = BrandHome.InstanceBrand
+                Dim openWindow As Grid = TryCast(brandWindow.FindName("openWindow"), Grid)
+                brandWindow.Button_Click_Open(sender, e)
             Case Else
                 ' Bu durum gerçekleşirse, varsayılan olarak bir şey yapabilirsiniz.
                 Return
@@ -78,6 +75,11 @@ Partial Public Class MainWindow
                 Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
                 productWindow.Button_Click_Open(sender, e)
                 productWindow.productlist_MouseDown(sender, e)
+            Case "UpdateBrand"
+                Dim brandWindow As BrandHome = BrandHome.InstanceBrand
+                Dim openWindow As Grid = TryCast(brandWindow.FindName("openWindow"), Grid)
+                brandWindow.Button_Click_Open(sender, e)
+                brandWindow.brandlist_MouseDown(sender, e)
                 'Case "brand"
                 '    Dim hedefSayfaUpdate As New UpdateBrand(selectedItemId)
                 '    hedefSayfaUpdate.Show()
@@ -106,6 +108,41 @@ Partial Public Class MainWindow
             Case "DeleteBrand"
                 Dim Id As Integer = selectedItemId
                 Dim response = Delete($"RemoveBrand/{Id}")
+                Dim brandWindow As BrandHome = BrandHome.InstanceBrand
+                brandWindow.GetAllAsync()
+                brandWindow.Close_Window(sender, e)
+            Case Else
+                MessageBox.Show("bi sıkıntı var kontrol et")
+                Return
+        End Select
+    End Sub
+    Public Async Sub BarButtonItem_Click_DeleteAll(sender As Object, e As RoutedEventArgs)
+        Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
+        Select Case clickedButton.Name
+            Case "DeleteAllCategory"
+                Dim categoryWindow As CategoryHome = InstanceCategory
+                For Each item In categoryWindow.categorylist.ItemsSource
+                    Dim Id As Integer = item.Id
+                    Dim response = Delete($"RemoveCategory/{Id}")
+                Next
+                Await categoryWindow.GetAllAsync()
+                categoryWindow.Close_Window(sender, e)
+            Case "DeleteAllProduct"
+                Dim productWindow As ProductHome = ProductHome.InstanceProduct
+                For Each item In productWindow.productlist.ItemsSource
+                    Dim Id As Integer = item.Id
+                    Dim response = Delete($"RemoveProduct/{Id}")
+                Next
+                Await productWindow.GetAllAsync()
+                productWindow.Close_Window(sender, e)
+            Case "DeleteAllBrand"
+                Dim brandWindow As BrandHome = BrandHome.InstanceBrand
+                For Each item In brandWindow.brandlist.ItemsSource
+                    Dim Id As Integer = item.Id
+                    Dim response = Delete($"RemoveBrand/{Id}")
+                Next
+                Await brandWindow.GetAllAsync()
+                brandWindow.Close_Window(sender, e)
             Case Else
                 MessageBox.Show("bi sıkıntı var kontrol et")
                 Return

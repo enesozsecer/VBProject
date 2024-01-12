@@ -1,4 +1,7 @@
-﻿Imports System.Net.Http
+﻿Imports System.IO
+Imports System.Net.Http
+Imports System.Text
+Imports DevExpress.Xpf.Bars
 Imports Microsoft.AspNetCore.Http
 Imports Microsoft.AspNetCore.Mvc
 Imports Newtonsoft.Json
@@ -6,8 +9,19 @@ Imports RestSharp
 Imports VBProject.Entity
 
 Public Class LoginWindow
+
     Public Async Sub LoginButton_Click(sender As Object, e As RoutedEventArgs)
-        logInBtn.IsEnabled = False
+        Dim clickButton As Button = DirectCast(sender, Button)
+
+        Select Case clickButton.Name
+            Case "logInBtn"
+                clickButton.Background = New SolidColorBrush(Colors.Red)
+                'System.Drawing.Color.Black
+            Case Else
+                ' Bu durum gerçekleşirse, varsayılan olarak bir şey yapabilirsiniz.
+                Return
+        End Select
+        'logInBtn.IsEnabled = False
 
         If txtUsername.Text Is "" Then
             MessageBox.Show("Kullanıcı Adı Alanını Doldurmak Zorunludur", "Hata", MessageBoxButton.OK, MessageBoxImage.Error)
