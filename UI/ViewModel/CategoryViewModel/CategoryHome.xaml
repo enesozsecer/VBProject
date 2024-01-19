@@ -55,7 +55,7 @@
             <TextBox Visibility="Hidden" x:Name="CatId" Text="{Binding Path=CategoryIdText, UpdateSourceTrigger=PropertyChanged}"/>
             <Button  FontSize="2" Content="x" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top"  BorderBrush="Transparent" Click="Close_Window" >
                 <Button.Background>
-                    <ImageBrush ImageSource="//ImageFolder/closebutton.png"/>
+                    <ImageBrush ImageSource="/ImageFolder/closebutton.png"/>
                 </Button.Background>
             </Button>
             <Button Content="Kaydet" Width="80" Height="25" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click" BorderBrush="#FF0022FF" BorderThickness="1.3" Foreground="White" Margin="0,0,20,20">

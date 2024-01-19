@@ -118,7 +118,7 @@ Public Class CompanyController
 
         'Log.Information("Companies => {@companyDTOResponse} => { Şirketler Getirildi. } ", companyDTOResponseList)
 
-        Return Ok(Sonuc(Of List(Of CompanyDTOResponse)).SuccessWithData(companyDTOResponseList))
+        Return Ok(companyDTOResponseList)
     End Function
 
     <HttpGet("/GetCompaniesByUser/{userId}")>

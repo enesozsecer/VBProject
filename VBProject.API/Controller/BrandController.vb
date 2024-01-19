@@ -1,10 +1,12 @@
 ﻿Imports AutoMapper
+Imports Microsoft.AspNetCore.Authorization
 Imports Microsoft.AspNetCore.Mvc
 Imports VBProject.Business
 Imports VBProject.Entity
 
 <ApiController>
 <Route("[Action]")>
+<Authorize(Roles:="Admin")>
 Public Class BrandController
     Inherits Controller
     Private ReadOnly _brandService As IBrandService
@@ -25,6 +27,7 @@ Public Class BrandController
         Next
 
         Return Ok(brandDTOResponseList)
+        'Return Ok(Sonuc(Of List(Of BrandDTOResponse)).SuccessWithData(brandDTOResponseList))
     End Function
     <HttpGet("/GetBrand/{brandId}")>
     Public Async Function GetBrand(brandId As Integer) As Task(Of IActionResult)

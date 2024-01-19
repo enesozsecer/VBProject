@@ -59,7 +59,7 @@
                         <dxr:ApplicationMenu/>
                     </dxr:RibbonControl.ApplicationMenu>
                     <dxr:RibbonControl.Background>
-                        <ImageBrush  Stretch="None" ImageSource="/ImageFolder/Ekran görüntüsü 2024-01-12 135301.png" TileMode="None" Opacity="1" RelativeTransform="{Binding VerticalAlignment.Top.Bottom, ElementName=window}"/>
+                        <ImageBrush  Stretch="UniformToFill" ImageSource="/ImageFolder/pngtree-technology-background-design-vector-image_2589763.jpg" TileMode="None" Opacity="1" RelativeTransform="{Binding VerticalAlignment.Top.Bottom, ElementName=window}"/>
                     </dxr:RibbonControl.Background>
                     <dxr:RibbonControl.PageHeaderItems>
                         <dxb:BarSubItem Background="Transparent" Foreground="Wheat" Content="Hesap" Glyph="{dx:DXImage SvgImages/Business Objects/BO_Person.svg}" RibbonStyle="Large">

@@ -98,8 +98,7 @@ Public Class DepartmentController
         Next
 
         'Log.Information("Departments => {@departmentDTOResponse} => { Departmanlar Getirildi. }", departmentDTOResponseList)
-
-        Return Ok(Sonuc(Of List(Of DepartmentDTOResponse)).SuccessWithData(departmentDTOResponseList))
+        Return Ok(departmentDTOResponseList)
     End Function
 
     <HttpGet("/GetDepartmentsByCompany/{companyId}")>
@@ -120,6 +119,4 @@ Public Class DepartmentController
 
         Return Ok(departmentDTOResponseList)
     End Function
-
-
 End Class

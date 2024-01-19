@@ -1,20 +1,17 @@
-﻿Imports Newtonsoft.Json.Linq
+﻿Imports System.Text
+Imports System.Windows.Forms
+Imports Newtonsoft.Json.Linq
+Imports UI.BaseFuncs
 Imports UI.MainWindow
 Imports VBProject.Entity
-Imports UI.BaseFuncs
-Imports System.Windows.Forms
-Imports System.Net.Http
-Imports System.Text
-Imports DevExpress.Xpf.Bars
-Imports System.Windows.Threading
 Public Class CategoryHome
     Dim myUserControl As New UserControl()
-    Public Property selectedId As Integer
     Public Sub New()
         InitializeComponent()
         GetAllAsync()
         InstanceCategory = Me
     End Sub
+    Public Property selectedId As Integer
     Public Shared Property InstanceCategory As CategoryHome
     Public Async Function GetAllAsync() As Task(Of List(Of String))
         Dim values As JArray = GetAll(Of CategoryModel)("GetCategories")
@@ -22,6 +19,7 @@ Public Class CategoryHome
         Dim filteredValues = convertedValues.Select(Function(u) New CategoryModel With {.Name = u.Name, .Id = u.Id, .IsActive = u.IsActive}).ToList()
         categorylist.ItemsSource = filteredValues
     End Function
+
     Public Sub GetById(Id As Integer)
         Dim category As CategoryDTORequest = GetOne(Of CategoryDTORequest)("GetCategory/" + Id.ToString())
         CatId.Text = category.Id

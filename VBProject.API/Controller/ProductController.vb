@@ -1,10 +1,12 @@
 ﻿Imports AutoMapper
+Imports Microsoft.AspNetCore.Authorization
 Imports Microsoft.AspNetCore.Mvc
 Imports VBProject.Business
 Imports VBProject.Entity
 
 <ApiController>
 <Route("[Action]")>
+<Authorize(Roles:="abc")>
 Public Class ProductController
     Inherits Controller
     Private ReadOnly _productService As IProductService

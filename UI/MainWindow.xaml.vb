@@ -1,4 +1,6 @@
 ﻿Imports DevExpress.Xpf.Bars
+Imports DevExpress.Xpf.Data.Native
+Imports DevExpress.Xpf.Utils.Themes
 Imports UI.BaseFuncs
 Imports UI.CategoryHome
 
@@ -44,17 +46,37 @@ Partial Public Class MainWindow
         Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
         Select Case clickedButton.Name
             Case "AddCategory"
-                Dim categoryWindow As CategoryHome = InstanceCategory
-                Dim openWindow As Grid = TryCast(categoryWindow.FindName("openWindow"), Grid)
-                categoryWindow.Button_Click_Open(sender, e)
+                If tabControl.SelectedItem.Name = "category" Then
+                    Dim categoryWindow As CategoryHome = InstanceCategory
+                    Dim openWindow As Grid = TryCast(categoryWindow.FindName("openWindow"), Grid)
+                    categoryWindow.Button_Click_Open(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "AddProduct"
-                Dim productWindow As ProductHome = ProductHome.InstanceProduct
-                Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
-                productWindow.Button_Click_Open(sender, e)
+                If tabControl.SelectedItem.Name = "product" Then
+                    Dim productWindow As ProductHome = ProductHome.InstanceProduct
+                    Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
+                    productWindow.Button_Click_Open(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "AddBrand"
-                Dim brandWindow As BrandHome = BrandHome.InstanceBrand
-                Dim openWindow As Grid = TryCast(brandWindow.FindName("openWindow"), Grid)
-                brandWindow.Button_Click_Open(sender, e)
+                If tabControl.SelectedItem.Name = "brand" Then
+                    Dim brandWindow As BrandHome = BrandHome.InstanceBrand
+                    Dim openWindow As Grid = TryCast(brandWindow.FindName("openWindow"), Grid)
+                    brandWindow.Button_Click_Open(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
+            Case "AddUser"
+                If tabControl.SelectedItem.Name = "user" Then
+                    Dim userWindow As UserHome = UserHome.InstanceUser
+                    Dim openWindow As Grid = TryCast(userWindow.FindName("openWindow"), Grid)
+                    userWindow.Button_Click_Open(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case Else
                 ' Bu durum gerçekleşirse, varsayılan olarak bir şey yapabilirsiniz.
                 Return
@@ -66,51 +88,90 @@ Partial Public Class MainWindow
 
         Select Case clickedButton.Name
             Case "UpdateCategory"
-                Dim categoryWindow As CategoryHome = InstanceCategory
-                Dim openWindow As Grid = TryCast(categoryWindow.FindName("openWindow"), Grid)
-                categoryWindow.Button_Click_Open(sender, e)
-                categoryWindow.categorylist_MouseDown(sender, e)
+                If tabControl.SelectedItem.Name = "category" Then
+                    Dim categoryWindow As CategoryHome = InstanceCategory
+                    Dim openWindow As Grid = TryCast(categoryWindow.FindName("openWindow"), Grid)
+                    categoryWindow.Button_Click_Open(sender, e)
+                    categoryWindow.categorylist_MouseDown(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "UpdateProduct"
-                Dim productWindow As ProductHome = ProductHome.InstanceProduct
-                Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
-                productWindow.Button_Click_Open(sender, e)
-                productWindow.productlist_MouseDown(sender, e)
+                If tabControl.SelectedItem.Name = "product" Then
+                    Dim productWindow As ProductHome = ProductHome.InstanceProduct
+                    Dim openWindow As Grid = TryCast(productWindow.FindName("openWindow"), Grid)
+                    productWindow.Button_Click_Open(sender, e)
+                    productWindow.productlist_MouseDown(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "UpdateBrand"
-                Dim brandWindow As BrandHome = BrandHome.InstanceBrand
-                Dim openWindow As Grid = TryCast(brandWindow.FindName("openWindow"), Grid)
-                brandWindow.Button_Click_Open(sender, e)
-                brandWindow.brandlist_MouseDown(sender, e)
-                'Case "brand"
-                '    Dim hedefSayfaUpdate As New UpdateBrand(selectedItemId)
-                '    hedefSayfaUpdate.Show()
+                If tabControl.SelectedItem.Name = "brand" Then
+                    Dim brandWindow As BrandHome = BrandHome.InstanceBrand
+                    Dim openWindow As Grid = TryCast(brandWindow.FindName("openWindow"), Grid)
+                    brandWindow.Button_Click_Open(sender, e)
+                    brandWindow.brandlist_MouseDown(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
+            Case "UpdateUser"
+                If tabControl.SelectedItem.Name = "user" Then
+                    Dim userWindow As UserHome = UserHome.InstanceUser
+                    Dim openWindow As Grid = TryCast(userWindow.FindName("openWindow"), Grid)
+                    userWindow.Button_Click_Open(sender, e)
+                    userWindow.userlist_MouseDown(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case Else
                 ' Bu durum gerçekleşirse, varsayılan olarak bir şey yapabilirsiniz.
                 Return
         End Select
 
     End Sub
-
-    Public Sub BarButtonItem_Click_Delete(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
+    Public Async Sub BarButtonItem_Click_Delete(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
         Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
         Select Case clickedButton.Name
             Case "DeleteCategory"
-                Dim Id As Integer = selectedItemId
-                Dim response = Delete($"RemoveCategory/{Id}")
-                Dim categoryWindow As CategoryHome = InstanceCategory
-                categoryWindow.GetAllAsync()
-                categoryWindow.Close_Window(sender, e)
+                If tabControl.SelectedItem.Name = "category" Then
+                    Dim Id As Integer = selectedItemId
+                    Dim response = Delete($"RemoveCategory/{Id}")
+                    Dim categoryWindow As CategoryHome = InstanceCategory
+                    Await categoryWindow.GetAllAsync()
+                    categoryWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "DeleteProduct"
-                Dim Id As Integer = selectedItemId
-                Dim response = Delete($"RemoveProduct/{Id}")
-                Dim productWindow As ProductHome = ProductHome.InstanceProduct
-                productWindow.GetAllAsync()
-                productWindow.Close_Window(sender, e)
+                If tabControl.SelectedItem.Name = "product" Then
+                    Dim Id As Integer = selectedItemId
+                    Dim response = Delete($"RemoveProduct/{Id}")
+                    Dim productWindow As ProductHome = ProductHome.InstanceProduct
+                    Await productWindow.GetAllAsync()
+                    productWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "DeleteBrand"
-                Dim Id As Integer = selectedItemId
-                Dim response = Delete($"RemoveBrand/{Id}")
-                Dim brandWindow As BrandHome = BrandHome.InstanceBrand
-                brandWindow.GetAllAsync()
-                brandWindow.Close_Window(sender, e)
+                If tabControl.SelectedItem.Name = "brand" Then
+                    Dim Id As Integer = selectedItemId
+                    Dim response = Delete($"RemoveBrand/{Id}")
+                    Dim brandWindow As BrandHome = BrandHome.InstanceBrand
+                    Await brandWindow.GetAllAsync()
+                    brandWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
+            Case "DeleteUser"
+                If tabControl.SelectedItem.Name = "user" Then
+                    Dim Id As Integer = selectedItemId
+                    Dim response = Delete($"RemoveUser/{Id}")
+                    Dim userWindow As UserHome = UserHome.InstanceUser
+                    Await userWindow.GetAllAsync()
+                    userWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case Else
                 MessageBox.Show("bi sıkıntı var kontrol et")
                 Return
@@ -121,28 +182,52 @@ Partial Public Class MainWindow
         Select Case clickedButton.Name
             Case "DeleteAllCategory"
                 Dim categoryWindow As CategoryHome = InstanceCategory
-                For Each item In categoryWindow.categorylist.ItemsSource
-                    Dim Id As Integer = item.Id
-                    Dim response = Delete($"RemoveCategory/{Id}")
-                Next
-                Await categoryWindow.GetAllAsync()
-                categoryWindow.Close_Window(sender, e)
+                If tabControl.SelectedItem.Name = "category" Then
+                    For Each item In categoryWindow.categorylist.ItemsSource
+                        Dim Id As Integer = item.Id
+                        Dim response = Delete($"RemoveCategory/{Id}")
+                    Next
+                    Await categoryWindow.GetAllAsync()
+                    categoryWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "DeleteAllProduct"
                 Dim productWindow As ProductHome = ProductHome.InstanceProduct
-                For Each item In productWindow.productlist.ItemsSource
-                    Dim Id As Integer = item.Id
-                    Dim response = Delete($"RemoveProduct/{Id}")
-                Next
-                Await productWindow.GetAllAsync()
-                productWindow.Close_Window(sender, e)
+                If tabControl.SelectedItem.Name = "product" Then
+                    For Each item In productWindow.productlist.ItemsSource
+                        Dim Id As Integer = item.Id
+                        Dim response = Delete($"RemoveProduct/{Id}")
+                    Next
+                    Await productWindow.GetAllAsync()
+                    productWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case "DeleteAllBrand"
                 Dim brandWindow As BrandHome = BrandHome.InstanceBrand
-                For Each item In brandWindow.brandlist.ItemsSource
-                    Dim Id As Integer = item.Id
-                    Dim response = Delete($"RemoveBrand/{Id}")
-                Next
-                Await brandWindow.GetAllAsync()
-                brandWindow.Close_Window(sender, e)
+                If tabControl.SelectedItem.Name = "brand" Then
+                    For Each item In brandWindow.brandlist.ItemsSource
+                        Dim Id As Integer = item.Id
+                        Dim response = Delete($"RemoveBrand/{Id}")
+                    Next
+                    Await brandWindow.GetAllAsync()
+                    brandWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
+            Case "DeleteAllUser"
+                Dim userWindow As UserHome = UserHome.InstanceUser
+                If tabControl.SelectedItem.Name = "user" Then
+                    For Each item In userWindow.userlist.ItemsSource
+                        Dim Id As Integer = item.Id
+                        Dim response = Delete($"RemoveUser/{Id}")
+                    Next
+                    Await userWindow.GetAllAsync()
+                    userWindow.Close_Window(sender, e)
+                Else
+                    MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+                End If
             Case Else
                 MessageBox.Show("bi sıkıntı var kontrol et")
                 Return
@@ -211,11 +296,14 @@ Partial Public Class MainWindow
                             newTabItem.Content = New ProductHome
                         Case "brand"
                             newTabItem.Content = New BrandHome
+                        Case "user"
+                            newTabItem.Content = New UserHome
                         Case Else
                             Return
                     End Select
                     tabControl.Items.Add(newTabItem)
                     tabControl.SelectedItem = newTabItem
+                    tabControl.SelectedItem.Name = clickedButton.Name
                 End If
             End If
         End If
@@ -228,7 +316,6 @@ Partial Public Class MainWindow
         Next
         Return Nothing
     End Function
-
     Public Sub TabControl_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim selectedTabItem As TabItem = TryCast(tabControl.SelectedItem, TabItem)
 
@@ -241,6 +328,7 @@ Partial Public Class MainWindow
                 Dim headerTextBlock As TextBlock = TryCast(headerStackPanel.Children.OfType(Of TextBlock)().FirstOrDefault(), TextBlock)
 
                 If headerTextBlock IsNot Nothing Then
+
                     ' Rengi siyah olan TabItem'ın başlık rengini beyaza dönüştür
                     If tabItem.IsSelected Then
                         headerTextBlock.Foreground = New SolidColorBrush(Colors.Black)
@@ -252,7 +340,6 @@ Partial Public Class MainWindow
             End If
         Next
     End Sub
-
     Public Sub CloseTabButtonClick(sender As Object, e As RoutedEventArgs)
         Dim closeButton As Button = TryCast(sender, Button)
         If closeButton IsNot Nothing Then
@@ -262,7 +349,6 @@ Partial Public Class MainWindow
             End If
         End If
     End Sub
-
     Private Function FindParentTabItem(element As FrameworkElement) As TabItem
         Dim parent As DependencyObject = VisualTreeHelper.GetParent(element)
 
@@ -272,5 +358,4 @@ Partial Public Class MainWindow
 
         Return TryCast(parent, TabItem)
     End Function
-
 End Class

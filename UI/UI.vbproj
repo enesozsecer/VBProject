@@ -12,6 +12,7 @@
     <None Remove="Ekran görüntüsü 2024-01-12 135301.png" />
     <None Remove="Elma Duvar Kağıdı.jpg" />
     <None Remove="pexels-marieke-schönfeld-2514035.jpg" />
+    <None Remove="pngtree-technology-background-design-vector-image_2589763.jpg" />
     <None Remove="ViewModel\CategoryViewModel\closebutton.png" />
   </ItemGroup>
 
@@ -50,5 +51,6 @@
     <Resource Include="ImageFolder\Elma Duvar Kağıdı.jpg" />
     <Resource Include="ImageFolder\pexels-marieke-schönfeld-2514035.jpg" />
     <Resource Include="ImageFolder\closebutton.png" />
+    <Resource Include="ImageFolder\pngtree-technology-background-design-vector-image_2589763.jpg" />
   </ItemGroup>
 </Project>

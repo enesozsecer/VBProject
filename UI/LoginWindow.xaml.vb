@@ -1,10 +1,4 @@
-﻿Imports System.IO
-Imports System.Net.Http
-Imports System.Text
-Imports DevExpress.Xpf.Bars
-Imports Microsoft.AspNetCore.Http
-Imports Microsoft.AspNetCore.Mvc
-Imports Newtonsoft.Json
+﻿Imports Newtonsoft.Json
 Imports RestSharp
 Imports VBProject.Entity
 
