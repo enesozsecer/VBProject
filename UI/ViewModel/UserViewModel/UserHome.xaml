@@ -4,15 +4,16 @@
           xmlns:dx="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-          mc:Ignorable="d" >
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx1="clr-namespace:DevExpress.Drawing;assembly=DevExpress.Drawing.v23.1" xmlns:dx2="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" >
 
     <dx:Grid >
         <dx:Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition />
         </dx:Grid.ColumnDefinitions>
-        <dx:Grid Grid.Column="0" Width="250" Visibility="Collapsed" x:Name="openWindow" Background="AntiqueWhite">
+        <dx:Grid Grid.Column="0" Width="250" Visibility="Visible" x:Name="openWindow" Background="AntiqueWhite">
             <Grid Margin="5,20,0,0">
                 <TextBlock x:Name="NameText" Text="Kullanıcı Adını Güncelle..." Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Black" />
                 <TextBox x:Name="NameInput" Width="235" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,20,0,0" Text="{Binding Path=UserNameText, UpdateSourceTrigger=PropertyChanged}"/>
@@ -101,8 +102,13 @@
                 </Button.Background>
             </Button>
         </dx:Grid>
-        <Grid Grid.Column="1">
-            <dxg:GridControl Margin="0,0,0,0" x:Name="userlist" ItemsSource="{Binding Users}"  MouseDoubleClick="userlist_MouseDown" Grid.ColumnSpan="2">
+        <Grid Grid.Column="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="187*"/>
+                <RowDefinition Height="32*"/>
+                <RowDefinition Height="193*"/>
+            </Grid.RowDefinitions>
+            <dxg:GridControl x:Name="userlist" ItemsSource="{Binding Users}"  MouseDoubleClick="userlist_MouseDown" Grid.RowSpan="3">
                 <dxg:GridControl.View>
                     <dxg:TableView TotalSummaryPosition="Bottom" ShowEditFormOnDoubleClick="False" ShowEditFormOnEnterKey="False" ShowEditFormOnF2Key="False" ShowEditFormUpdateCancelButtons="False" AllowEditing="False"/>
                 </dxg:GridControl.View>
@@ -115,6 +121,14 @@
                 <dxg:GridColumn x:Name="DepartmentColumn" Width="2*" Header="Kullanıcı Departmanı" Binding="{Binding DepartmentName}"/>
                 <dxg:GridColumn x:Name="CompanyColumn" Width="2*" Header="Kullanıcı Şirketi" Binding="{Binding CompanyName}"/>
             </dxg:GridControl>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Height="20" Width="10" >
+                <Button.Background >
+                    <ImageBrush ImageSource="/ImageFolder/Sol.png"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <Grid Grid.Column="1" Background="AntiqueWhite">
+
         </Grid>
     </dx:Grid>
 

@@ -6,7 +6,6 @@ Imports VBProject.Entity
 
 <ApiController>
 <Route("[Action]")>
-<Authorize(Roles:="abc")>
 Public Class ProductController
     Inherits Controller
     Private ReadOnly _productService As IProductService

@@ -16,7 +16,10 @@ Public Class CategoryHome
     Public Async Function GetAllAsync() As Task(Of List(Of String))
         Dim values As JArray = GetAll(Of CategoryModel)("GetCategories")
         Dim convertedValues = values.Select(Function(u) u.ToObject(Of CategoryModel)()).ToList()
-        Dim filteredValues = convertedValues.Select(Function(u) New CategoryModel With {.Name = u.Name, .Id = u.Id, .IsActive = u.IsActive}).ToList()
+        Dim filteredValues = convertedValues.Select(Function(u) New CategoryModel With {
+                                                        .Name = u.Name,
+                                                        .Id = u.Id,
+                                                        .IsActive = u.IsActive}).ToList()
         categorylist.ItemsSource = filteredValues
     End Function
 
@@ -24,13 +27,13 @@ Public Class CategoryHome
         Dim category As CategoryDTORequest = GetOne(Of CategoryDTORequest)("GetCategory/" + Id.ToString())
         CatId.Text = category.Id
     End Sub
-    Public Sub Button_Click(sender As Object, e As RoutedEventArgs)
+    Public Async Sub Button_Click(sender As Object, e As RoutedEventArgs)
         If CatId.Text = "" Then
             Dim p As CategoryDTOBase = New CategoryDTOBase()
             p.Name = CategoryInput.Text
             Dim response = Add(Of CategoryDTOBase)("AddCategory", p)
             If response Then
-                GetAllAsync()
+                Await GetAllAsync()
             Else
                 MessageBox.Show("Bir sorun oluştu...")
             End If
@@ -40,7 +43,7 @@ Public Class CategoryHome
             p.Id = Convert.ToUInt32(CatId.Text)
             Dim response = Update(Of CategoryDTOBase)(p, "UpdateCategory")
             If response Then
-                GetAllAsync()
+                Await GetAllAsync()
             Else
                 MessageBox.Show("Bir sorun oluştu...")
             End If

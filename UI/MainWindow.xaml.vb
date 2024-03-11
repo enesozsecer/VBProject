@@ -44,6 +44,10 @@ Partial Public Class MainWindow
 
     Public Sub BarButtonItem_Click_Add(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
         Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
+        If tabControl.SelectedItem Is Nothing Then
+            MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+            Return
+        End If
         Select Case clickedButton.Name
             Case "AddCategory"
                 If tabControl.SelectedItem.Name = "category" Then
@@ -85,7 +89,10 @@ Partial Public Class MainWindow
     End Sub
     Public Sub BarButtonItem_Click_Update(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
         Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
-
+        If tabControl.SelectedItem Is Nothing Then
+            MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+            Return
+        End If
         Select Case clickedButton.Name
             Case "UpdateCategory"
                 If tabControl.SelectedItem.Name = "category" Then
@@ -131,6 +138,10 @@ Partial Public Class MainWindow
     End Sub
     Public Async Sub BarButtonItem_Click_Delete(sender As Object, e As RoutedEventArgs) ' başka sayfaya gönderme
         Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
+        If tabControl.SelectedItem Is Nothing Then
+            MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+            Return
+        End If
         Select Case clickedButton.Name
             Case "DeleteCategory"
                 If tabControl.SelectedItem.Name = "category" Then
@@ -179,6 +190,10 @@ Partial Public Class MainWindow
     End Sub
     Public Async Sub BarButtonItem_Click_DeleteAll(sender As Object, e As RoutedEventArgs)
         Dim clickedButton As BarButtonItem = DirectCast(sender, BarButtonItem)
+        If tabControl.SelectedItem Is Nothing Then
+            MessageBox.Show("İşlem yapmak istediğiniz sayfayı açınız!!!")
+            Return
+        End If
         Select Case clickedButton.Name
             Case "DeleteAllCategory"
                 Dim categoryWindow As CategoryHome = InstanceCategory
